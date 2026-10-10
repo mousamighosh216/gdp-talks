@@ -1,0 +1,20 @@
+{
+  "name": "gdp-talks",
+  "private": true,
+  "version": "1.0.0",
+  "description": "GDP Talks - company hackathon website (MERN + Tailwind)",
+  "scripts": {
+    "install:all": "npm install && npm install --prefix server && npm install --prefix client",
+    "dev": "concurrently -n api,web -c yellow,cyan \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "build": "npm run build --prefix client && npm run build --prefix server",
+    "test": "npm test --prefix server && npm test --prefix client",
+    "test:server": "npm test --prefix server",
+    "test:client": "npm test --prefix client",
+    "start": "cross-env NODE_ENV=production npm start --prefix server",
+    "typecheck": "npm run typecheck --prefix server && npm run typecheck --prefix client"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0",
+    "cross-env": "^10.1.0"
+  }
+}

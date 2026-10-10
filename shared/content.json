@@ -1,0 +1,199 @@
+{
+  "journey": [
+    {
+      "order": 1,
+      "title": "Registration",
+      "summary": "Create your profile on Unstop and register as an individual or with a team. Registration takes a few minutes and is free.",
+      "details": [
+        "Sign up or log in on the hosting platform",
+        "Add your college, skills and team details",
+        "Receive your confirmation and welcome note by email"
+      ],
+      "action": "register"
+    },
+    {
+      "order": 2,
+      "title": "Onboarding",
+      "summary": "Meet the community, understand the rules and get your tools ready before the first problem statements go live.",
+      "details": [
+        "Join the community space and meet your mentors",
+        "Walk through the schedule, rules and judging criteria",
+        "Set up your repositories and learn the deployment basics"
+      ],
+      "action": null
+    },
+    {
+      "order": 3,
+      "title": "Selection and refining",
+      "summary": "Pick a company problem statement, shape your idea with mentors and refine it into something you can actually ship.",
+      "details": [
+        "Browse problem statements across every sector",
+        "Pitch your approach and collect mentor feedback",
+        "Refine, deploy and present your final build"
+      ],
+      "action": null
+    }
+  ],
+  "sectors": [
+    {
+      "slug": "devtools",
+      "name": "Devtools",
+      "tagline": "Tools that make developers faster",
+      "summary": "Companies building products for engineers want fresh eyes from people who live inside editors, terminals and pull requests every day.",
+      "problems": [
+        {
+          "title": "Make a new codebase easy to understand",
+          "brief": "Design a flow that helps a developer understand an unfamiliar repository within their first hour."
+        },
+        {
+          "title": "Explain failing builds in plain language",
+          "brief": "Turn cryptic CI logs into a clear, actionable summary that a junior developer can act on."
+        },
+        {
+          "title": "From localhost to live in one guided path",
+          "brief": "Create a guided path that takes a quickly built project from a laptop to a hosted, repeatable deployment."
+        }
+      ]
+    },
+    {
+      "slug": "fashion",
+      "name": "Fashion",
+      "tagline": "Style, supply chains and storefronts",
+      "summary": "Fashion brands are rethinking how people discover, size and buy clothes online. These problems sit between design, data and logistics.",
+      "problems": [
+        {
+          "title": "Find the right size the first time",
+          "brief": "Reduce returns by helping shoppers pick the correct size without a fitting room."
+        },
+        {
+          "title": "Plan collection drops with less guesswork",
+          "brief": "Predict demand for a limited collection so brands produce neither too much nor too little."
+        },
+        {
+          "title": "Make secondhand feel premium",
+          "brief": "Design a trusted resale experience that matches the polish of buying new."
+        }
+      ]
+    },
+    {
+      "slug": "services",
+      "name": "Services",
+      "tagline": "Service businesses running on people and time",
+      "summary": "Service companies depend on schedules, trust and follow-ups. Small improvements to these workflows save hours every week.",
+      "problems": [
+        {
+          "title": "Scheduling that survives no-shows",
+          "brief": "Build a booking flow that reduces cancellations and fills gaps automatically."
+        },
+        {
+          "title": "Quotes in minutes, not days",
+          "brief": "Help a service team prepare accurate quotes from a short customer brief."
+        },
+        {
+          "title": "Keep clients informed without more emails",
+          "brief": "Create a simple status experience so clients always know where their project stands."
+        }
+      ]
+    },
+    {
+      "slug": "product-services",
+      "name": "Product Services",
+      "tagline": "Products wrapped in ongoing services",
+      "summary": "Product companies increasingly sell outcomes alongside software. These problems focus on onboarding, retention and support.",
+      "problems": [
+        {
+          "title": "Turn support tickets into product insight",
+          "brief": "Group recurring support questions and surface what the product team should fix first."
+        },
+        {
+          "title": "Make renewals simple and honest",
+          "brief": "Design a renewal experience that is clear about price, usage and the option to leave."
+        },
+        {
+          "title": "Onboard customers consistently across web and mobile",
+          "brief": "Create one onboarding journey that feels the same on every device."
+        }
+      ]
+    },
+    {
+      "slug": "ed-tech",
+      "name": "Ed Tech",
+      "tagline": "Learning that keeps people coming back",
+      "summary": "Education products struggle with motivation and feedback at scale. Students are the best people to say what works.",
+      "problems": [
+        {
+          "title": "Keep learners engaged past week two",
+          "brief": "Design nudges and progress signals that help learners stay on track without feeling pressured."
+        },
+        {
+          "title": "Give feedback on code and writing at scale",
+          "brief": "Help one mentor give useful feedback to hundreds of learners."
+        },
+        {
+          "title": "Show real skills, not just certificates",
+          "brief": "Create a way for students to present projects and skills that employers can trust."
+        }
+      ]
+    },
+    {
+      "slug": "inference-providers",
+      "name": "Inference Provider",
+      "tagline": "Serving models fast and affordably",
+      "summary": "Inference providers run models for other developers. The hard parts are speed, cost and making the platform easy to adopt.",
+      "problems": [
+        {
+          "title": "Explain latency and cost to non-experts",
+          "brief": "Build a dashboard that shows what a request cost and why it was slow."
+        },
+        {
+          "title": "Pick the right model for the job",
+          "brief": "Guide developers towards the smallest model that meets their quality bar."
+        },
+        {
+          "title": "Make the first API call painless",
+          "brief": "Reduce the time between signing up and a first successful request."
+        }
+      ]
+    },
+    {
+      "slug": "gaming",
+      "name": "Gaming",
+      "tagline": "Communities, matches and moments",
+      "summary": "Game studios and platforms care about fair play, healthy communities and a great first session.",
+      "problems": [
+        {
+          "title": "Match players fairly in small communities",
+          "brief": "Design matchmaking that stays fair when there are only a few players online."
+        },
+        {
+          "title": "Onboard new players without a tutorial wall",
+          "brief": "Teach the core loop through play instead of long instructions."
+        },
+        {
+          "title": "Moderate chat without killing the fun",
+          "brief": "Build tools that catch harmful behaviour while keeping conversations lively."
+        }
+      ]
+    },
+    {
+      "slug": "d2c-brands",
+      "name": "D2C Brands",
+      "tagline": "Brands that sell straight to customers",
+      "summary": "Direct-to-consumer brands own the whole customer journey, from the first ad to the fifth order.",
+      "problems": [
+        {
+          "title": "Turn first-time buyers into repeat customers",
+          "brief": "Design a post-purchase experience that brings customers back at the right time."
+        },
+        {
+          "title": "Make product pages answer questions before they are asked",
+          "brief": "Use customer questions and reviews to improve product pages and reduce drop-off."
+        },
+        {
+          "title": "Understand which channels really drive sales",
+          "brief": "Give small teams a clear view of what each marketing channel contributes."
+        }
+      ]
+    }
+  ]
+}
