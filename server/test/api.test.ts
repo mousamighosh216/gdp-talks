@@ -44,6 +44,15 @@ describe('API', () => {
     assert.ok(sector.problems.every((p: { title: string; brief: string }) => p.title && p.brief));
   });
 
+  test('GET /sectors/:slug includes the full description, goals and considerations', async () => {
+    const sector = await json(await api.get('/sectors/gaming'));
+    for (const p of sector.problems) {
+      assert.ok(Array.isArray(p.description) && p.description.length >= 2);
+      assert.ok(Array.isArray(p.goals) && p.goals.length >= 3);
+      assert.ok(Array.isArray(p.considerations) && p.considerations.length >= 3);
+    }
+  });
+
   test('GET /sectors/:slug returns 404 for an unknown sector', async () => {
     const res = await api.get('/sectors/does-not-exist');
     assert.equal(res.status, 404);

@@ -43,15 +43,57 @@
       "problems": [
         {
           "title": "Make a new codebase easy to understand",
-          "brief": "Design a flow that helps a developer understand an unfamiliar repository within their first hour."
+          "brief": "Design a flow that helps a developer understand an unfamiliar repository within their first hour.",
+          "description": [
+            "Every developer has felt the first hour in an unfamiliar repository: dozens of folders, no obvious entry point and a README that stopped being true two releases ago. Teams lose real time here, both for new hires and for anyone moving between services.",
+            "We want to see a flow that turns a raw repository into a short, trustworthy tour. It could be a guided walkthrough, a generated map of how the pieces connect, or something we have not thought of."
+          ],
+          "goals": [
+            "A newcomer can explain what the project does and where to start within an hour",
+            "The tour stays correct as the code changes, without manual upkeep",
+            "It works for repositories in more than one language or framework"
+          ],
+          "considerations": [
+            "Repositories can be large, so the approach has to be fast and selective",
+            "Private code should never leave the user's machine without consent",
+            "Showing less, but correctly, beats showing everything"
+          ]
         },
         {
           "title": "Explain failing builds in plain language",
-          "brief": "Turn cryptic CI logs into a clear, actionable summary that a junior developer can act on."
+          "brief": "Turn cryptic CI logs into a clear, actionable summary that a junior developer can act on.",
+          "description": [
+            "A red build is only useful if people understand why it is red. Today most failures arrive as hundreds of lines of logs, and the one line that matters is buried in the middle. Junior developers often just re-run the job and hope.",
+            "The challenge is to read a failing build and explain it in plain language: what broke, the most likely cause and a sensible next step. Accuracy matters more than cleverness, and the tool should say so when it is unsure."
+          ],
+          "goals": [
+            "A developer can understand a failure without scrolling through the full log",
+            "Suggestions point to the exact file, test or step involved",
+            "The tool admits uncertainty instead of guessing"
+          ],
+          "considerations": [
+            "Logs differ across CI systems, so keep the input format flexible",
+            "Logs can contain secrets and must be handled carefully",
+            "Think about flaky tests as well as real breakages"
+          ]
         },
         {
           "title": "From localhost to live in one guided path",
-          "brief": "Create a guided path that takes a quickly built project from a laptop to a hosted, repeatable deployment."
+          "brief": "Create a guided path that takes a quickly built project from a laptop to a hosted, repeatable deployment.",
+          "description": [
+            "Many students and small teams can build an app on their laptop in a weekend and then get stuck at hosting. Choosing a platform, setting environment variables, connecting a database and repeating a deploy are separate skills, and each has its own jargon.",
+            "We are looking for a guided path that takes a project from localhost to a live, repeatable deployment. It should teach as it goes, so the person understands what happened and can do it again without help."
+          ],
+          "goals": [
+            "A first-time user reaches a working live URL in one sitting",
+            "Secrets and configuration are handled safely by default",
+            "The second deploy takes minutes, not hours"
+          ],
+          "considerations": [
+            "Assume the user has never deployed anything before",
+            "Free tiers matter, because many users are students",
+            "Explain errors in plain language, not only in logs"
+          ]
         }
       ]
     },
@@ -63,15 +105,57 @@
       "problems": [
         {
           "title": "Find the right size the first time",
-          "brief": "Reduce returns by helping shoppers pick the correct size without a fitting room."
+          "brief": "Reduce returns by helping shoppers pick the correct size without a fitting room.",
+          "description": [
+            "Wrong size is the most common reason clothes are sent back. Sizes vary between brands, bodies vary between people and a size chart rarely settles the doubt. Every return costs money, time and a little trust.",
+            "We want an experience that helps a shopper pick the right size on the first try without a fitting room. You could use measurements, past purchases, reviews or photos, as long as the shopper stays in control of their data."
+          ],
+          "goals": [
+            "Fewer size-related returns for the same product",
+            "Shoppers feel confident enough to order without ordering two sizes",
+            "The flow takes under a minute and respects privacy"
+          ],
+          "considerations": [
+            "Not everyone is comfortable sharing body measurements",
+            "The same size can fit differently across fabrics and cuts",
+            "Keep the experience inclusive across body types"
+          ]
         },
         {
           "title": "Plan collection drops with less guesswork",
-          "brief": "Predict demand for a limited collection so brands produce neither too much nor too little."
+          "brief": "Predict demand for a limited collection so brands produce neither too much nor too little.",
+          "description": [
+            "Limited collections are exciting for customers and stressful for brands. Make too little and the best pieces sell out in an hour, make too much and the rest ends up on sale. Most small brands decide with a mix of instinct and last year's spreadsheet.",
+            "The task is to help a brand estimate demand for a drop before production is locked. Think about signals such as waitlists, early engagement and past drops, and about presenting a range instead of a single confident number."
+          ],
+          "goals": [
+            "A clear demand range per product for an upcoming drop",
+            "Early signals update the estimate as they arrive",
+            "Brands can see why the estimate looks the way it does"
+          ],
+          "considerations": [
+            "Data is usually small and messy for new brands",
+            "A wrong forecast is costly, so be honest about uncertainty",
+            "Seasonality and trends change quickly"
+          ]
         },
         {
           "title": "Make secondhand feel premium",
-          "brief": "Design a trusted resale experience that matches the polish of buying new."
+          "brief": "Design a trusted resale experience that matches the polish of buying new.",
+          "description": [
+            "Buying secondhand clothes can feel risky: is it authentic, is it clean, will it really look like the photo? New stores feel polished and trustworthy, resale often feels like a lottery.",
+            "We want a resale experience that feels as premium as buying new. That could mean better condition reporting, authenticity checks, smart photography guidance or a presentation that makes each piece feel cared for."
+          ],
+          "goals": [
+            "Buyers trust the condition and authenticity of what they see",
+            "Sellers can list an item quickly with consistent quality",
+            "The overall feel matches a premium brand"
+          ],
+          "considerations": [
+            "Every item is unique, so listings cannot be fully templated",
+            "Sellers are often casual users, so keep listing simple",
+            "Think about returns and disputes early"
+          ]
         }
       ]
     },
@@ -83,15 +167,57 @@
       "problems": [
         {
           "title": "Scheduling that survives no-shows",
-          "brief": "Build a booking flow that reduces cancellations and fills gaps automatically."
+          "brief": "Build a booking flow that reduces cancellations and fills gaps automatically.",
+          "description": [
+            "For service businesses, an empty slot is lost revenue and a no-show is the most frustrating way to get one. Reminders help a little, but many teams still lose hours every week to cancellations that arrive too late.",
+            "We want a booking flow that reduces no-shows and recovers gaps when they happen. Ideas include smarter reminders, small commitments at booking time and a simple waitlist that fills a freed slot automatically."
+          ],
+          "goals": [
+            "A measurable drop in no-shows and late cancellations",
+            "Freed slots are offered to the right people quickly",
+            "Customers still find booking and rescheduling easy"
+          ],
+          "considerations": [
+            "Heavy penalties can scare customers away",
+            "Different services need different rules",
+            "Staff should stay in control of exceptions"
+          ]
         },
         {
           "title": "Quotes in minutes, not days",
-          "brief": "Help a service team prepare accurate quotes from a short customer brief."
+          "brief": "Help a service team prepare accurate quotes from a short customer brief.",
+          "description": [
+            "Customers want a price before they commit, but writing a quote can take a team several days of back and forth. Slow quotes lose jobs to whoever answers first.",
+            "The challenge is to help a service team prepare accurate quotes from a short customer brief. It could suggest line items, ask the right follow-up questions and flag anything that looks unusual before a person signs off."
+          ],
+          "goals": [
+            "A first draft of a quote within minutes of receiving a brief",
+            "Quotes are consistent with past pricing and clearly explained",
+            "A person can review and adjust before it goes out"
+          ],
+          "considerations": [
+            "Prices depend on details customers rarely mention up front",
+            "Keep a human in the loop for final approval",
+            "Make assumptions visible so there are no surprises later"
+          ]
         },
         {
           "title": "Keep clients informed without more emails",
-          "brief": "Create a simple status experience so clients always know where their project stands."
+          "brief": "Create a simple status experience so clients always know where their project stands.",
+          "description": [
+            "Clients of service firms often ask the same thing again and again: where does my project stand? Answering by email takes time and still leaves clients feeling out of the loop.",
+            "We are looking for a simple status experience that lets clients see progress without sending a message. It should feel calm and clear for the client and take almost no extra effort from the team."
+          ],
+          "goals": [
+            "Clients can see current status and next steps at a glance",
+            "Fewer status emails and calls for the team",
+            "Updates stay accurate with minimal manual work"
+          ],
+          "considerations": [
+            "Not every client is comfortable with new tools, so keep access easy",
+            "Be careful about what internal detail is shown",
+            "Notifications should help, not nag"
+          ]
         }
       ]
     },
@@ -103,15 +229,57 @@
       "problems": [
         {
           "title": "Turn support tickets into product insight",
-          "brief": "Group recurring support questions and surface what the product team should fix first."
+          "brief": "Group recurring support questions and surface what the product team should fix first.",
+          "description": [
+            "Support teams hear the truth about a product every day, but it stays locked in individual tickets. The same issue is reported dozens of times before anyone on the product side notices.",
+            "We want a way to group recurring support questions and turn them into clear, prioritised insight for the product team. Show what is hurting customers most, how it is changing and what evidence backs it up."
+          ],
+          "goals": [
+            "Recurring issues are grouped automatically and readably",
+            "The product team can see what to fix first and why",
+            "Insights link back to the original tickets as evidence"
+          ],
+          "considerations": [
+            "Tickets are messy and written in many styles",
+            "Customer data must be handled carefully",
+            "Prioritise by impact, not only by volume"
+          ]
         },
         {
           "title": "Make renewals simple and honest",
-          "brief": "Design a renewal experience that is clear about price, usage and the option to leave."
+          "brief": "Design a renewal experience that is clear about price, usage and the option to leave.",
+          "description": [
+            "Renewal is a moment of truth. Customers who feel surprised by a price or unsure about what they used tend to leave, and confusing renewal flows create resentment even among customers who stay.",
+            "The task is to design a renewal experience that is clear about price, usage and options, including the option to leave. Honesty builds the kind of trust that makes people stay by choice."
+          ],
+          "goals": [
+            "Customers understand exactly what they will be charged and why",
+            "Usage and value are shown clearly before renewal",
+            "Cancelling or changing plans is easy and respectful"
+          ],
+          "considerations": [
+            "Avoid dark patterns that trick people into staying",
+            "Different customers renew on different schedules",
+            "Think about reminders that arrive at a helpful time"
+          ]
         },
         {
           "title": "Onboard customers consistently across web and mobile",
-          "brief": "Create one onboarding journey that feels the same on every device."
+          "brief": "Create one onboarding journey that feels the same on every device.",
+          "description": [
+            "Many products live on both web and mobile, and the first experience often differs between them. A customer who starts on one device and continues on another can feel like they are starting over.",
+            "We want one onboarding journey that feels the same on every device and remembers where the customer left off. Consider what must be identical and what should adapt to each screen."
+          ],
+          "goals": [
+            "Progress carries over between web and mobile",
+            "The journey feels consistent in tone, steps and design",
+            "More customers reach their first moment of value"
+          ],
+          "considerations": [
+            "Screen size and input method change what is practical",
+            "Some steps may only be possible on one platform",
+            "Measure completion at each step to find drop-offs"
+          ]
         }
       ]
     },
@@ -123,15 +291,57 @@
       "problems": [
         {
           "title": "Keep learners engaged past week two",
-          "brief": "Design nudges and progress signals that help learners stay on track without feeling pressured."
+          "brief": "Design nudges and progress signals that help learners stay on track without feeling pressured.",
+          "description": [
+            "Most learning products see a sharp drop in activity after the first week or two. Motivation fades, life gets busy and the course becomes a tab nobody opens.",
+            "We want to see nudges, progress signals and routines that help learners stay on track without feeling pressured or tricked. The goal is steady progress, not just more clicks."
+          ],
+          "goals": [
+            "More learners still active after week two",
+            "Learners feel supported rather than pressured",
+            "Progress is visible and meaningful to the learner"
+          ],
+          "considerations": [
+            "Notifications that annoy people backfire quickly",
+            "Learners differ in goals and available time",
+            "Avoid rewarding activity that does not mean learning"
+          ]
         },
         {
           "title": "Give feedback on code and writing at scale",
-          "brief": "Help one mentor give useful feedback to hundreds of learners."
+          "brief": "Help one mentor give useful feedback to hundreds of learners.",
+          "description": [
+            "A single mentor cannot give detailed feedback on hundreds of submissions, yet feedback is what turns practice into learning. Automated checks tell learners whether something passes but rarely explain how to improve.",
+            "The challenge is to help one mentor give useful, personal feedback to hundreds of learners. This could involve summarising common mistakes, drafting comments for review or organising work so the mentor's time goes where it matters."
+          ],
+          "goals": [
+            "Learners receive specific, actionable feedback quickly",
+            "Mentors spend their time on the feedback only a person can give",
+            "Quality stays consistent as the number of learners grows"
+          ],
+          "considerations": [
+            "Feedback must be accurate or it does harm",
+            "Tone matters, especially for beginners",
+            "Keep the mentor in control of what is sent"
+          ]
         },
         {
           "title": "Show real skills, not just certificates",
-          "brief": "Create a way for students to present projects and skills that employers can trust."
+          "brief": "Create a way for students to present projects and skills that employers can trust.",
+          "description": [
+            "A certificate says a course was finished but not what the person can actually do. Employers know this, and learners with real skills struggle to stand out.",
+            "We want a way for students to present projects and skills that employers can trust. Think about verified evidence, clear descriptions of what was built and a format that a busy hiring manager can scan in a minute."
+          ],
+          "goals": [
+            "Employers can quickly see what a student has built and can do",
+            "Claims are backed by evidence that is hard to fake",
+            "Students can keep and share their profile easily"
+          ],
+          "considerations": [
+            "Hiring managers have very little time per candidate",
+            "Group projects need fair attribution",
+            "Privacy and consent matter for student work"
+          ]
         }
       ]
     },
@@ -143,15 +353,57 @@
       "problems": [
         {
           "title": "Explain latency and cost to non-experts",
-          "brief": "Build a dashboard that shows what a request cost and why it was slow."
+          "brief": "Build a dashboard that shows what a request cost and why it was slow.",
+          "description": [
+            "Developers using hosted models are often surprised by their bill and unsure why a request was slow. Latency and cost depend on many things, such as model size, prompt length, load and caching, and they are rarely explained well.",
+            "We want a dashboard or report that shows what each request cost and why it was slow, in language a non-expert can understand. It should help someone decide what to change, not just show numbers."
+          ],
+          "goals": [
+            "Users understand the cost and speed of each request",
+            "Clear suggestions on how to reduce both",
+            "Useful for a first-time developer and a platform engineer alike"
+          ],
+          "considerations": [
+            "Too many metrics overwhelm people, so choose carefully",
+            "Prices and performance change over time",
+            "Think about both single requests and trends"
+          ]
         },
         {
           "title": "Pick the right model for the job",
-          "brief": "Guide developers towards the smallest model that meets their quality bar."
+          "brief": "Guide developers towards the smallest model that meets their quality bar.",
+          "description": [
+            "There are many models to choose from and the biggest one is not always the best for the job. Developers often start with the most capable model and pay for far more than they need.",
+            "The challenge is to guide developers towards the smallest model that meets their quality bar. This could be a testing tool, a recommendation flow or a comparison that uses the developer's own examples."
+          ],
+          "goals": [
+            "Developers can compare models on their own tasks",
+            "The recommended model meets the stated quality bar at lower cost",
+            "The reasoning behind a recommendation is visible"
+          ],
+          "considerations": [
+            "Quality is subjective, so let users define what good means",
+            "New models appear often",
+            "Consider speed and cost alongside quality"
+          ]
         },
         {
           "title": "Make the first API call painless",
-          "brief": "Reduce the time between signing up and a first successful request."
+          "brief": "Reduce the time between signing up and a first successful request.",
+          "description": [
+            "The first API call is where many developers decide whether a platform is worth their time. Account setup, keys, documentation and example code each add friction, and every extra step loses people.",
+            "We want to shorten the time between signing up and a first successful request. Look at the whole path, including sign-up, getting a key, making a request and understanding the response."
+          ],
+          "goals": [
+            "A new developer makes a successful request within minutes",
+            "Errors at each step are clear and fixable",
+            "The path works in more than one language or tool"
+          ],
+          "considerations": [
+            "Security matters, so keys must be handled safely",
+            "Different developers expect different tooling",
+            "Measure where people drop off today"
+          ]
         }
       ]
     },
@@ -163,15 +415,57 @@
       "problems": [
         {
           "title": "Match players fairly in small communities",
-          "brief": "Design matchmaking that stays fair when there are only a few players online."
+          "brief": "Design matchmaking that stays fair when there are only a few players online.",
+          "description": [
+            "Matchmaking systems work best with large player pools. In a small community, strict rules mean long waits and loose rules mean lopsided matches, and both drive players away.",
+            "We want to see matchmaking that stays fair and fun when only a few players are online. Consider flexible rules, handicaps, team balancing or modes that make uneven matches enjoyable."
+          ],
+          "goals": [
+            "Short wait times without frequently lopsided matches",
+            "Players feel matches were fair, even when they lose",
+            "Works with very small numbers of players"
+          ],
+          "considerations": [
+            "Skill is hard to measure from few games",
+            "Players quit quickly after unfair matches",
+            "Different game modes need different approaches"
+          ]
         },
         {
           "title": "Onboard new players without a tutorial wall",
-          "brief": "Teach the core loop through play instead of long instructions."
+          "brief": "Teach the core loop through play instead of long instructions.",
+          "description": [
+            "Long tutorials are often skipped, and players who skip them get stuck and leave. The first few minutes of a game decide whether people stay.",
+            "The task is to teach the core loop through play instead of walls of instructions. Show how the first session could introduce ideas gradually, respond to what the player does and keep it fun."
+          ],
+          "goals": [
+            "New players understand the core loop within the first session",
+            "Fewer players quit in the first ten minutes",
+            "Experienced players are not slowed down"
+          ],
+          "considerations": [
+            "Players learn at different speeds",
+            "Teaching moments should feel like part of the game",
+            "Measure what players actually do, not what they say"
+          ]
         },
         {
           "title": "Moderate chat without killing the fun",
-          "brief": "Build tools that catch harmful behaviour while keeping conversations lively."
+          "brief": "Build tools that catch harmful behaviour while keeping conversations lively.",
+          "description": [
+            "Chat makes games social, but it also invites harassment. Heavy-handed moderation kills the fun and ignores real context, while too little makes communities unwelcoming.",
+            "We want tools that catch harmful behaviour while keeping conversations lively. Think about how to handle context, banter between friends, reports and appeals, and how to keep human moderators effective."
+          ],
+          "goals": [
+            "Harmful messages are caught quickly and fairly",
+            "Normal friendly conversation is left alone",
+            "Players and moderators understand why actions were taken"
+          ],
+          "considerations": [
+            "Language and slang change constantly",
+            "False positives frustrate players",
+            "Protect players, especially younger ones"
+          ]
         }
       ]
     },
@@ -183,15 +477,57 @@
       "problems": [
         {
           "title": "Turn first-time buyers into repeat customers",
-          "brief": "Design a post-purchase experience that brings customers back at the right time."
+          "brief": "Design a post-purchase experience that brings customers back at the right time.",
+          "description": [
+            "Winning a first order is expensive, and the real profit often comes from the second and third. Many brands send a receipt and then go quiet, hoping customers will remember them.",
+            "We want a post-purchase experience that brings customers back at the right time with the right reason. Think about usage reminders, helpful content, replenishment and small moments that make the first order feel valued."
+          ],
+          "goals": [
+            "More first-time buyers place a second order",
+            "Messages arrive at a useful time and feel relevant",
+            "Customers can easily control what they receive"
+          ],
+          "considerations": [
+            "Over-messaging can drive people away",
+            "Products differ in how often they are reordered",
+            "Respect privacy and consent"
+          ]
         },
         {
           "title": "Make product pages answer questions before they are asked",
-          "brief": "Use customer questions and reviews to improve product pages and reduce drop-off."
+          "brief": "Use customer questions and reviews to improve product pages and reduce drop-off.",
+          "description": [
+            "Shoppers leave product pages when a question goes unanswered: does it fit, how does it feel, how long does it last? The answers often exist in customer reviews and questions but are hard to find.",
+            "The challenge is to use customer questions and reviews to improve product pages so they answer what people ask before they ask it. This should reduce drop-off and support requests at the same time."
+          ],
+          "goals": [
+            "Common questions are answered clearly on the product page",
+            "Fewer shoppers leave without buying",
+            "The page stays accurate as new reviews arrive"
+          ],
+          "considerations": [
+            "Reviews can be biased or contradictory",
+            "Pages should stay quick and readable",
+            "Never invent claims the brand cannot support"
+          ]
         },
         {
           "title": "Understand which channels really drive sales",
-          "brief": "Give small teams a clear view of what each marketing channel contributes."
+          "brief": "Give small teams a clear view of what each marketing channel contributes.",
+          "description": [
+            "Small brand teams spend money on several marketing channels but struggle to tell which ones really drive sales. Reports from each platform claim credit for the same purchase.",
+            "We want a clear view of what each channel contributes, designed for a small team without a data analyst. Be honest about what can and cannot be known, and focus on helping the team decide where to spend next."
+          ],
+          "goals": [
+            "A simple, trustworthy view of each channel's contribution",
+            "Clear guidance on where to spend or save",
+            "Honest about uncertainty and overlap between channels"
+          ],
+          "considerations": [
+            "Tracking is limited by privacy rules and browser changes",
+            "Small data means wide error bars",
+            "Keep it understandable for non-experts"
+          ]
         }
       ]
     }

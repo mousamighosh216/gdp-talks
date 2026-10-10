@@ -33,3 +33,17 @@ test('journey runs registration, onboarding, selection with sequential order', (
   ]);
   assert.equal(content.journey.filter((j) => j.action === 'register').length, 1);
 });
+
+test('every problem has a descriptive pop-up: 2+ paragraphs, 3 goals, 3 considerations', () => {
+  for (const s of content.sectors) {
+    for (const p of s.problems) {
+      const where = `${s.slug}: ${p.title}`;
+      assert.ok(p.description.length >= 2, `${where} needs 2+ description paragraphs`);
+      assert.ok(p.goals.length >= 3, `${where} needs 3+ goals`);
+      assert.ok(p.considerations.length >= 3, `${where} needs 3+ considerations`);
+      for (const text of [...p.description, ...p.goals, ...p.considerations]) {
+        assert.ok(text.trim().length > 10, `${where} has an empty entry`);
+      }
+    }
+  }
+});

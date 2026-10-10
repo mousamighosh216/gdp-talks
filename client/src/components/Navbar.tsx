@@ -4,12 +4,12 @@ import { Menu, X, ArrowUpRight } from 'lucide-react';
 import Brand from './Brand';
 import { REGISTER_URL } from '../lib/api';
 
-// Same order as the page: home, about, student journey, companies.
+// Same order as the page: home, student journey, companies, about.
 const LINKS = [
   { to: '/#top', label: 'Home' },
-  { to: '/#about', label: 'About' },
   { to: '/#journey', label: 'Student journey' },
   { to: '/#companies', label: 'Companies' },
+  { to: '/#about', label: 'About' },
 ];
 
 export default function Navbar() {

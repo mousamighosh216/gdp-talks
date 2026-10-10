@@ -10,11 +10,10 @@
     "test": "npm test --prefix server && npm test --prefix client",
     "test:server": "npm test --prefix server",
     "test:client": "npm test --prefix client",
-    "start": "cross-env NODE_ENV=production npm start --prefix server",
+    "start": "NODE_ENV=production npm start --prefix server",
     "typecheck": "npm run typecheck --prefix server && npm run typecheck --prefix client"
   },
   "devDependencies": {
-    "concurrently": "^9.0.0",
-    "cross-env": "^10.1.0"
+    "concurrently": "^9.2.5"
   }
 }

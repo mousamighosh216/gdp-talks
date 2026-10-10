@@ -31,15 +31,15 @@ export default function About() {
         className={`reveal relative mx-auto max-w-6xl px-5 ${seen ? 'is-visible' : ''}`}
       >
         <p className="font-heading text-sm font-semibold uppercase tracking-widest text-gold-200">
-          About
+          About · Our agenda
         </p>
         <h2 className="mt-2 max-w-3xl font-heading text-3xl font-bold sm:text-4xl md:text-5xl">
-          Our agenda
+          Smart people should keep meeting
         </h2>
         <p className="mt-5 max-w-2xl text-lg leading-relaxed text-cream/85">
-          GDP Talks exists so that smart people keep meeting. We bring curious students and
-          ambitious companies together around one hackathon, and make sure the ideas that come out
-          of it do not stay on a laptop.
+          That is why GDP Talks exists. We bring curious students and ambitious companies together
+          around one hackathon, and make sure the ideas that come out of it do not stay on a
+          laptop.
         </p>
 
         <div className="mt-14 grid gap-6 md:grid-cols-3">

@@ -51,11 +51,11 @@
 :root {
   --fs-sub: clamp(1.1rem, 2.4vw, 2rem);
   --fs-head: calc(var(--fs-sub) * 1.6);
-  --fs-chat: calc(var(--fs-head) * 0.55);
+  --fs-chat: calc(var(--fs-sub) * 0.55);
 }
 .type-sub { font-size: var(--fs-sub); line-height: 1.25; }
 .type-head { font-size: var(--fs-head); line-height: 1.05; }
-.type-chat { font-size: var(--fs-chat); line-height: 1.3; }
+.type-chat { font-size: var(--fs-chat); line-height: 1.2; }
 
 html { scroll-behavior: smooth; }
 body {

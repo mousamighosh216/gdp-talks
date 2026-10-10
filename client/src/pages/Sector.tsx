@@ -1,8 +1,9 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, CheckCircle2, Loader2, PenLine, Send, Sparkles } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, CheckCircle2, Loader2, Send, Sparkles } from 'lucide-react';
 import NotFound from './NotFound';
 import FloatingBackdrop from '../components/FloatingBackdrop';
+import ProblemModal from '../components/ProblemModal';
 import { useApi, fallbackSectors, submitQuestion } from '../lib/api';
 import { SECTOR_UI } from '../lib/sectors';
 import type { Problem, Sector } from '../types';
@@ -22,14 +23,20 @@ function SectorContent({ slug, fallback }: { slug: string; fallback: Sector }) {
 
   const [form, setForm] = useState<FormState>(EMPTY);
   const [status, setStatus] = useState<Status>({ state: 'idle', message: '' });
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const set =
     (key: keyof FormState) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       setForm((f) => ({ ...f, [key]: e.target.value }));
 
-  const useAsStart = (p: Problem) => {
+  const startOwn = (p: Problem) => {
+    setOpenIndex(null);
     setForm((f) => ({ ...f, question: `${p.title}\n\n${p.brief}\n\nOur twist: ` }));
-    document.getElementById('try-your-own')?.scrollIntoView({ behavior: 'smooth' });
+    // wait for the pop-up to unmount (it restores focus and page scrolling) before scrolling
+    setTimeout(
+      () => document.getElementById('try-your-own')?.scrollIntoView({ behavior: 'smooth' }),
+      50
+    );
   };
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -100,28 +107,28 @@ function SectorContent({ slug, fallback }: { slug: string; fallback: Sector }) {
             Sample problem statements
           </h2>
           <p className="mt-3 max-w-2xl text-lg text-navy-950/80">
-            Use these as a reference for the kind of problem students can take on, or adapt one as
-            your own.
+            Select any problem to read the full description, then email us your approach or start
+            your own version.
           </p>
 
           <ol className="mt-10 grid gap-6 md:grid-cols-3">
             {sector.problems.map((p, i) => (
-              <li
-                key={p.title}
-                className="flex flex-col rounded-3xl border border-navy-950/10 bg-white/70 p-7"
-              >
-                <span className="grid h-10 w-10 place-items-center rounded-full bg-navy-950 font-heading text-sm font-bold text-gold-400">
-                  {i + 1}
-                </span>
-                <h3 className="mt-5 font-heading text-xl font-bold text-navy-950">{p.title}</h3>
-                <p className="mt-2 flex-1 leading-relaxed text-navy-950/80">{p.brief}</p>
+              <li key={p.title} className="flex">
                 <button
                   type="button"
-                  onClick={() => useAsStart(p)}
-                  className="mt-6 inline-flex items-center gap-2 self-start font-heading text-sm font-semibold text-navy-700 hover:text-navy-950"
+                  onClick={() => setOpenIndex(i)}
+                  aria-haspopup="dialog"
+                  className="group flex w-full flex-col rounded-3xl border border-navy-950/10 bg-white/70 p-7 text-left shadow-sm transition duration-300 hover:-translate-y-1 hover:border-navy-700/40 hover:shadow-lg hover:shadow-navy-950/10"
                 >
-                  <PenLine size={16} aria-hidden="true" />
-                  Use as a starting point
+                  <span className="grid h-10 w-10 place-items-center rounded-full bg-navy-950 font-heading text-sm font-bold text-gold-400">
+                    {i + 1}
+                  </span>
+                  <span className="mt-5 font-heading text-xl font-bold text-navy-950">{p.title}</span>
+                  <span className="mt-2 flex-1 leading-relaxed text-navy-950/80">{p.brief}</span>
+                  <span className="mt-6 inline-flex items-center gap-2 font-heading text-sm font-semibold text-navy-700 group-hover:text-navy-950">
+                    Read the full problem
+                    <ArrowUpRight size={16} aria-hidden="true" />
+                  </span>
                 </button>
               </li>
             ))}
@@ -235,6 +242,19 @@ function SectorContent({ slug, fallback }: { slug: string; fallback: Sector }) {
           </form>
         </div>
       </section>
+
+      {openIndex !== null && sector.problems[openIndex] && (
+        <ProblemModal
+          sector={sector}
+          problem={sector.problems[openIndex]}
+          index={openIndex}
+          icon={ui.icon}
+          iconBg={ui.boxBg}
+          iconFg={ui.boxFg}
+          onClose={() => setOpenIndex(null)}
+          onStartOwn={() => startOwn(sector.problems[openIndex])}
+        />
+      )}
     </>
   );
 }

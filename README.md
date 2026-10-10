@@ -32,13 +32,13 @@ npm run test:watch --prefix client
 
 ## Page order
 
-Hero (subtitle, title, chat, asset) → About → Student journey → Company routing → Footer.
+Hero (subtitle, title, short description, chat on the right) → Student journey → Company routing → About (opens with the tagline) → Footer.
 
 ## Structure
 
-- `shared/content.json`: journey steps, sectors and sample problem statements
+- `shared/content.json`: journey steps, sectors and problem statements. Each problem has a one-line `brief` (shown on the card) and a `description` (paragraphs), `goals` and `considerations` (shown in the pop-up). The text is sample content: replace it with the real problems.
 - `server/`: Express API in TypeScript (run with tsx in dev, compiled with tsc for production) (`/api/sectors`, `/api/sectors/:slug`, `/api/journey`, `POST /api/submissions`)
-- `client/src/components/`: Hero (title + scroll-driven chat + asset), About, Journey, Companies, FloatingBackdrop (drifting background assets)
+- `client/src/components/`: Hero (title, description and scroll-driven chat), Journey, Companies (hover logo box on desktop, tap-to-expand rows on phones), About, ProblemModal (pop-up for a problem), FloatingBackdrop (drifting background assets)
 - `client/src/pages/`: Home, Sector (one template, 8 sector pages), DocD (coming soon), NotFound
 - `client/src/lib/sectors.ts`: icon and soft hover tint per sector
 - `client/src/lib/story.ts`: the Engineer X / Doc D conversation and the two-at-a-time scroll logic
@@ -49,3 +49,4 @@ Hero (subtitle, title, chat, asset) → About → Student journey → Company ro
 - Type scale: heading = subtitle x 1.6, chat text = heading reduced by 45%. Change `--fs-sub` to scale all.
 - The company logo is a placeholder: replace `client/public/logo-placeholder.svg`.
 - Footer email and social links are placeholders.
+- The pop-up's "Email us your approach" button opens an email to `VITE_CONTACT_EMAIL` (set it in `client/.env`), pre-filled with the sector and problem.

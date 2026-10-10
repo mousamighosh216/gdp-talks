@@ -35,7 +35,7 @@ export type BackdropTheme = 'light' | 'dark';
 
 const PRESETS: Record<BackdropPreset, Item[]> = {
   hero: [
-    { kind: 'ring', x: 2, y: 56, size: 64, dx: 16, dy: -22, rot: 20, dur: 17, delay: 0 },
+    { kind: 'ring', x: 2, y: 56, size: 64, dx: 16, dy: -22, rot: 20, dur: 17, delay: 0, hideOnMobile: true },
     { kind: 'dot', x: 46, y: 10, size: 18, dx: -10, dy: 20, rot: 0, dur: 13, delay: 1 },
     { kind: 'icon', icon: Code, x: 58, y: 70, size: 44, dx: 14, dy: -18, rot: -12, dur: 19, delay: 2, hideOnMobile: true },
     { kind: 'pill', x: 90, y: 62, size: 26, dx: -12, dy: -26, rot: 14, dur: 21, delay: 3, hideOnMobile: true },

@@ -2,7 +2,13 @@ import mongoose from 'mongoose';
 import type { Problem, Sector as SectorShape, JourneyStep as JourneyShape, SubmissionInput } from '../types.js';
 
 const problemSchema = new mongoose.Schema<Problem>(
-  { title: { type: String, required: true }, brief: { type: String, required: true } },
+  {
+    title: { type: String, required: true },
+    brief: { type: String, required: true },
+    description: [String],
+    goals: [String],
+    considerations: [String],
+  },
   { _id: false }
 );
 

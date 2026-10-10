@@ -25,6 +25,17 @@ describe('Hero', () => {
     expect(subtitle.compareDocumentPosition(heading) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
+<<<<<<< HEAD
+=======
+  it('describes what GDP Talks is and points to the conversation', () => {
+    renderAt(<Hero />);
+    expect(screen.getByText(/GDP Talks is a hackathon where students and companies meet/)).toBeInTheDocument();
+    expect(
+      screen.getByText('Follow the conversation between Doc D and Engineer X')
+    ).toBeInTheDocument();
+  });
+
+>>>>>>> a6d74d4 (version 1 : GDP TALKS)
   it('starts with no messages and invites the visitor to scroll', () => {
     renderAt(<Hero />);
     expect(screen.queryByText(MSG.x1)).not.toBeInTheDocument();
@@ -76,7 +87,11 @@ describe('Hero', () => {
     );
   });
 
+<<<<<<< HEAD
   it('has the asset box and decorative background marked as decoration', () => {
+=======
+  it('marks the decorative background as decoration', () => {
+>>>>>>> a6d74d4 (version 1 : GDP TALKS)
     const { container } = renderAt(<Hero />);
     expect(container.querySelector('[data-backdrop="hero"]')).toHaveAttribute('aria-hidden', 'true');
   });

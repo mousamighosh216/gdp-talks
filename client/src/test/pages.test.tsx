@@ -10,10 +10,17 @@ import { IDLE_THEME, PALETTE, SECTOR_UI } from '../lib/sectors';
 import { renderAt, stubFetch } from './utils';
 
 describe('Home page', () => {
+<<<<<<< HEAD
   it('orders the sections: hero, about, student journey, company routing, then footer', () => {
     stubFetch();
     const { container } = renderAt(<App />, '/');
     const ids = ['top', 'about', 'journey', 'companies'];
+=======
+  it('orders the sections: hero, student journey, company routing, about, then footer', () => {
+    stubFetch();
+    const { container } = renderAt(<App />, '/');
+    const ids = ['top', 'journey', 'companies', 'about'];
+>>>>>>> a6d74d4 (version 1 : GDP TALKS)
     const els = ids.map((id) => container.querySelector(`#${id}`));
     els.forEach((el, i) => expect(el, `#${ids[i]} missing`).toBeInTheDocument());
     for (let i = 1; i < els.length; i++) {
@@ -32,12 +39,26 @@ describe('Home page', () => {
     expect(container.querySelector('#story')).not.toBeInTheDocument();
   });
 
+<<<<<<< HEAD
+=======
+  it('opens the About section with the tagline', () => {
+    stubFetch();
+    const { container } = renderAt(<App />, '/');
+    const about = container.querySelector('#about')!;
+    expect(about.querySelector('h2')).toHaveTextContent('Smart people should keep meeting');
+  });
+
+>>>>>>> a6d74d4 (version 1 : GDP TALKS)
   it('lists the navigation links in page order', () => {
     stubFetch();
     renderAt(<App />, '/');
     const nav = screen.getByRole('navigation', { name: 'Main' });
     const labels = Array.from(nav.querySelectorAll('ul a')).map((a) => a.textContent?.trim());
+<<<<<<< HEAD
     expect(labels.slice(0, 4)).toEqual(['Home', 'About', 'Student journey', 'Companies']);
+=======
+    expect(labels.slice(0, 4)).toEqual(['Home', 'Student journey', 'Companies', 'About']);
+>>>>>>> a6d74d4 (version 1 : GDP TALKS)
   });
 
   it('navigates from a sector link to the sector page', async () => {

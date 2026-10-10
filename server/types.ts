@@ -1,6 +1,13 @@
 export interface Problem {
   title: string;
+  /** one-line summary shown on the card */
   brief: string;
+  /** the full, descriptive version shown in the pop-up (paragraphs) */
+  description: string[];
+  /** what a good solution should achieve */
+  goals: string[];
+  /** constraints and things to keep in mind */
+  considerations: string[];
 }
 
 export interface Sector {

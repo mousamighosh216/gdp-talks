@@ -81,7 +81,7 @@ export default function Journey() {
   }, []);
 
   return (
-    <section id="journey" className="relative overflow-hidden bg-cream py-24 md:py-32">
+    <section id="journey" className="relative overflow-hidden border-t border-navy-950/10 bg-cream py-24 md:py-32">
       <FloatingBackdrop preset="journey" />
       <div className="relative mx-auto max-w-4xl px-5">
         <p className="font-heading text-sm font-semibold uppercase tracking-widest text-navy-500">

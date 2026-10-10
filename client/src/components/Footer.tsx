@@ -13,9 +13,9 @@ const SOCIALS = [
 
 const EXPLORE: Array<[string, string]> = [
   ['/#top', 'Home'],
-  ['/#about', 'About'],
   ['/#journey', 'Student journey'],
   ['/#companies', 'Companies'],
+  ['/#about', 'About'],
   ['/doc-d', 'Doc D'],
 ];
 
