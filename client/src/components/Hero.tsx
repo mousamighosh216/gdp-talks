@@ -1,132 +1,190 @@
-import { useRef } from 'react';
+import { useState } from 'react';
+import { ArrowRight, Menu, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { ArrowDown, ArrowRight, CheckCheck, ChevronDown } from 'lucide-react';
-import Avatar, { PEOPLE, type Who } from './Avatar';
-import FloatingBackdrop from './FloatingBackdrop';
-import { useScrollProgress } from '../lib/useScrollProgress';
-import { PAIRS, STAGES, getChatState } from '../lib/story';
-
-function TypingBubble({ who }: { who: Who }) {
-  return (
-    <div className={`pop flex ${who === 'd' ? 'sm:ml-10' : ''}`} aria-hidden="true">
-      <div className="flex items-center gap-1.5 rounded-2xl bg-navy-950/90 px-4 py-3">
-        <span className="dot h-2 w-2 rounded-full bg-cream" />
-        <span className="dot h-2 w-2 rounded-full bg-cream" />
-        <span className="dot h-2 w-2 rounded-full bg-cream" />
-      </div>
-    </div>
-  );
-}
 
 export default function Hero() {
-  const ref = useRef<HTMLElement>(null);
-  const progress = useScrollProgress(ref);
-  const chat = getChatState(progress);
-
-  const shown = chat.pairIndex === null ? [] : PAIRS[chat.pairIndex].slice(0, chat.visible);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <section
       id="top"
-      ref={ref}
-      className="relative bg-cream"
-      style={{ height: `${100 + (STAGES - 1) * 45}vh` }}
+      className="gdp-hero relative min-h-screen overflow-hidden bg-[#F0EFEA] text-[#0A1E3F]"
     >
-      <div className="sticky top-0 h-screen overflow-hidden pt-16">
-        <FloatingBackdrop preset="hero" />
+      {/* Background decoration */}
+      <div
+        className="pointer-events-none absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-[#FEE39F]/30 blur-3xl"
+        aria-hidden="true"
+      />
 
-        <div className="relative mx-auto flex h-full max-w-6xl flex-col justify-center gap-5 px-5 lg:grid lg:grid-cols-2 lg:items-center lg:gap-14">
-          {/* Left: subtitle, title, what GDP Talks is, and a pointer to the conversation */}
-          <div className="min-w-0">
-            <p className="type-sub font-heading font-medium text-navy-700">
-              smart people should keep meeting
-            </p>
-            <h1 className="type-head mt-2 font-heading font-bold tracking-tight text-navy-950">
-              GDP Talks
-            </h1>
+      <div
+        className="pointer-events-none absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-[#2A5A96]/10 blur-3xl"
+        aria-hidden="true"
+      />
 
-            <div className="mt-5 max-w-xl rounded-3xl border-2 border-navy-950/15 bg-white/55 p-5 sm:mt-7 sm:p-6">
-              <p className="text-base leading-relaxed text-navy-950/85 sm:text-lg">
-                GDP Talks is a hackathon where students and companies meet to solve real problems
-                together. Build something real, learn how to actually ship it, and keep the
-                conversation going.
-              </p>
-              <p className="mt-3 inline-flex items-center gap-2 font-heading text-sm font-semibold text-navy-700 sm:text-base">
-                Follow the conversation between Doc D and Engineer X
-                <ArrowRight size={18} className="hidden lg:block" aria-hidden="true" />
-                <ArrowDown size={18} className="lg:hidden" aria-hidden="true" />
-              </p>
-            </div>
-          </div>
+      {/* Navigation */}
+      <header className="relative z-20 mx-auto flex max-w-[1440px] items-center justify-between px-6 py-6 sm:px-10 lg:px-16">
+        <a href="#top" className="group flex items-center gap-3">
+          <span className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-[#0A1E3F] bg-[#EFBB55] font-heading text-xl font-bold text-[#0A1E3F] transition-transform duration-300 group-hover:-rotate-6">
+            G
+          </span>
 
-          {/* Right: the conversation. No frame, two messages at a time, driven by scrolling */}
-          <div
-            className="min-w-0"
-            role="log"
-            aria-live="polite"
-            aria-label="Engineer X and Doc D conversation"
+          <span className="font-heading text-sm font-bold uppercase tracking-[0.2em] sm:text-base">
+            GDP TALKS
+          </span>
+        </a>
+
+        {/* Desktop navigation */}
+        <nav className="hidden items-center gap-10 md:flex">
+          <a
+            href="#about"
+            className="font-heading text-sm font-medium transition-colors hover:text-[#2A5A96]"
           >
-            <div className="flex items-center gap-3">
-              <div className="flex -space-x-3">
-                <Avatar who="d" className="h-9 w-9 text-xs" />
-                <Avatar who="x" className="h-9 w-9 text-xs" />
-              </div>
-              <div className="leading-tight">
-                <p className="font-heading text-sm font-semibold text-navy-950">
-                  Engineer X · Doc D
-                </p>
-                <p className="text-sm text-navy-700">
-                  {chat.typing ? `${PEOPLE[chat.typing].name} is typing…` : 'online'}
-                </p>
-              </div>
-            </div>
+            About
+          </a>
 
-            <div className="mt-4 flex min-h-[13rem] flex-col gap-3 sm:min-h-[17rem]">
-              {shown.map((m, i) => (
-                <div
-                  key={`${chat.pairIndex}-${i}`}
-                  className={`pop max-w-[96%] self-start rounded-2xl rounded-tl-sm px-4 py-2.5 shadow-sm ${
-                    m.from === 'x'
-                      ? 'bg-navy-500 text-cream'
-                      : 'bg-navy-950 text-cream sm:ml-10'
-                  }`}
-                >
-                  <p className="mb-0.5 font-heading text-xs font-semibold text-gold-200">
-                    {PEOPLE[m.from].name}
-                  </p>
-                  <p className="type-chat">{m.text}</p>
-                  <p className="mt-1 flex items-center justify-end gap-1 text-[11px] text-cream/70">
-                    {m.time}
-                    {m.from === 'x' && (
-                      <CheckCheck size={14} className="text-gold-200" aria-hidden="true" />
-                    )}
-                  </p>
-                </div>
-              ))}
+          <a
+            href="#domains"
+            className="font-heading text-sm font-medium transition-colors hover:text-[#2A5A96]"
+          >
+            Challenges
+          </a>
 
-              {chat.typing && <TypingBubble who={chat.typing} />}
+          <a
+            href="#mentors"
+            className="font-heading text-sm font-medium transition-colors hover:text-[#2A5A96]"
+          >
+            Mentors
+          </a>
 
-              {!shown.length && !chat.typing && (
-                <p className="inline-flex items-center gap-2 text-navy-700">
-                  <ChevronDown size={18} className="bob" aria-hidden="true" />
-                  Scroll to start the conversation
-                </p>
-              )}
+          <Link
+            to="/register"
+            className="rounded-xl bg-[#0A1E3F] px-7 py-4 font-heading text-sm font-bold uppercase tracking-wide text-[#F0EFEA] transition duration-300 hover:-translate-y-1 hover:bg-[#102F5C]"
+          >
+            Register Now
+          </Link>
+        </nav>
 
-              {chat.showCta && (
-                <Link
-                  to="/doc-d"
-                  className="pop mt-2 inline-flex items-center gap-3 self-start rounded-full bg-gold-400 py-2.5 pl-3 pr-6 font-heading text-base font-semibold text-navy-950 shadow-md transition hover:bg-gold-200"
-                >
-                  <Avatar who="d" className="h-9 w-9 text-xs" />
-                  Chat with Doc D yourself
-                  <ArrowRight size={18} aria-hidden="true" />
-                </Link>
-              )}
-            </div>
+        {/* Mobile menu button */}
+        <button
+          type="button"
+          className="rounded-lg border border-[#0A1E3F]/15 p-3 md:hidden"
+          aria-label={mobileMenuOpen ? 'Close navigation' : 'Open navigation'}
+          aria-expanded={mobileMenuOpen}
+          onClick={() => setMobileMenuOpen((open) => !open)}
+        >
+          {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
+      </header>
+
+      {/* Mobile navigation */}
+      {mobileMenuOpen && (
+        <nav className="relative z-30 mx-5 flex flex-col gap-5 rounded-2xl border border-[#0A1E3F]/10 bg-[#F0EFEA] px-6 py-5 shadow-lg md:hidden">
+          <a
+            href="#about"
+            className="font-heading text-sm font-medium"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            About
+          </a>
+
+          <a
+            href="#domains"
+            className="font-heading text-sm font-medium"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Challenges
+          </a>
+
+          <a
+            href="#mentors"
+            className="font-heading text-sm font-medium"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Mentors
+          </a>
+
+          <Link
+            to="/register"
+            className="rounded-xl bg-[#0A1E3F] px-5 py-3 text-center font-heading text-sm font-bold text-[#F0EFEA]"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Register Now
+          </Link>
+        </nav>
+      )}
+
+      {/* Hero content */}
+      <div className="mx-auto grid min-h-[calc(100svh-88px)] max-w-[1440px] items-center gap-8 px-6 pb-16 pt-8 sm:px-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 lg:px-16 lg:py-10">
+
+        {/* Left: Illustration */}
+        <div className="gdp-illustration relative order-2 flex items-center justify-center lg:order-1">
+          <div
+            className="absolute left-[10%] top-[15%] h-32 w-32 rounded-full bg-[#EFBB55]/25 blur-2xl"
+            aria-hidden="true"
+          />
+
+          <img
+            src="../src/assets/GDPTalks.png"
+            alt="GDP Talks 2026 illustration featuring creative building blocks and people collaborating"
+            className="relative z-10 w-full max-w-[760px] object-contain drop-shadow-sm"
+          />
+        </div>
+
+        {/* Right: Typography */}
+        <div className="gdp-copy relative z-10 order-1 lg:order-2">
+          <p className="mb-5 font-heading text-xs font-bold uppercase tracking-[0.28em] text-[#2A5A96] sm:text-sm">
+            Students × Companies × Ideas
+          </p>
+
+          <h1 className="font-heading text-[clamp(3.2rem,6vw,6.5rem)] font-normal leading-[0.98] tracking-[-0.065em]">
+            Where{' '}
+            <span className="font-bold">ideas</span>
+
+            <br />
+
+            meet{' '}
+            <span className="font-bold">
+              reality<span className="text-[#EFBB55]">.</span>
+            </span>
+          </h1>
+
+          <p className="mt-7 font-heading text-sm font-bold uppercase tracking-[0.32em] text-[#102F5C] sm:text-base lg:text-lg">
+            GDP TALKS 2026
+          </p>
+
+          <div className="my-6 h-[3px] w-16 rounded-full bg-[#EFBB55]" />
+
+          <p className="max-w-lg font-body text-sm leading-[1.9] text-[#0A1E3F]/80 sm:text-base lg:text-lg">
+            Students and companies.
+            <br />
+            Real problems. Things worth building.
+          </p>
+
+          <div className="mt-8 flex flex-wrap items-center gap-5">
+            <a
+              href="#conversation"
+              className="group inline-flex items-center gap-5 rounded-xl bg-[#0A1E3F] px-6 py-4 font-heading text-sm font-bold uppercase tracking-wide text-[#F0EFEA] shadow-lg shadow-[#0A1E3F]/10 transition duration-300 hover:-translate-y-1 hover:bg-[#102F5C] sm:px-9 sm:py-5 sm:text-base"
+            >
+              Explore GDP Talks
+
+              <ArrowRight
+                size={20}
+                className="transition-transform duration-300 group-hover:translate-x-2"
+              />
+            </a>
           </div>
+
+          <p className="mt-8 font-heading text-xs font-medium uppercase tracking-[0.18em] text-[#2A5A96]/70">
+            Think it. Build it. Ship it.
+          </p>
         </div>
       </div>
+
+      {/* Decorative corner */}
+      <div
+        className="pointer-events-none absolute bottom-0 right-0 h-40 w-40 translate-x-1/3 translate-y-1/3 rounded-full bg-[#FEE39F]/40 blur-3xl"
+        aria-hidden="true"
+      />
     </section>
   );
 }
