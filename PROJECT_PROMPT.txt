@@ -1,0 +1,155 @@
+PROJECT PROMPT: GDP TALKS (company hackathon website)
+
+Build a professional, friendly and bold website for a company hackathon called "GDP Talks".
+Subtitle: "smart people should keep meeting". Do not make any design decision that is not defined here. If something is missing, ask.
+
+==================================================
+1. TECH STACK
+==================================================
+- Next.js (App Router) + React + TypeScript (strict). One app, no separate server.
+- Tailwind CSS v4 (tokens in @theme inside app/globals.css).
+- Icons: lucide-react (UI), react-icons/fa6 (social logos).
+- Fonts: Space Grotesk (headings, via @fontsource, offline safe) and Libron (body, four user-supplied woff2 files in public/fonts: Regular, Italic, Bold, BoldItalic, loaded with @font-face).
+- Backend: Next.js route handlers. MongoDB (Mongoose) is OPTIONAL: with MONGODB_URI the content is seeded and submissions are stored; without it the app serves content/content.json and keeps submissions in memory.
+- Tests: Vitest + jsdom + Testing Library.
+- Env: MONGODB_URI, NEXT_PUBLIC_REGISTER_URL (Unstop or placeholder), NEXT_PUBLIC_CONTACT_EMAIL.
+
+==================================================
+2. DESIGN SYSTEM
+==================================================
+Palette (cream background, navy text, gold as ACCENT ONLY):
+- Cream (Pantone Cloud Dancer): #F0EEE9  - page background
+- Navy 950 #0A1E3F (main text), Navy 900 #102F5C, Navy 700 #1A447A, Navy 500 #2A5A96
+- Gold 200 "Light Scatter" #FEE39F, Gold 400 "Golden Glamor" #EFBB55
+Type scale (tokens, one place to change):
+- --fs-sub = clamp(1.1rem, 2.4vw, 2rem)  (subtitle)
+- --fs-head = subtitle x 1.6  (heading "GDP Talks")
+- --fs-chat = heading reduced by 45%  (heading x 0.55)  (story text)
+Rules:
+- ALL text is left aligned.
+- Soft, eye-friendly colours on hover (see section 8). No harsh flips to dark or saturated backgrounds.
+- Subtle, slow moving background assets (rings, dots, pills, icons) in every section. Decorative only: aria-hidden, pointer-events none, hidden partly on phones, stopped by prefers-reduced-motion.
+- Focus ring: 3px gold. Smooth scrolling (off for reduced motion). Anchored sections keep an offset below the navbar.
+- Responsive: desktop, tablet, phone.
+
+==================================================
+3. PAGE ORDER (home)
+==================================================
+Navbar -> Hero (#top) -> Student journey (#journey) -> Company routing (#companies) -> About (#about) -> Footer.
+There is no separate story section: the story lives in the hero.
+
+==================================================
+4. NAVBAR
+==================================================
+- Fixed, cream, blurred. Left: logo mark (gold square with chat icon) + "GDP Talks".
+- Links in page order: Home, Student journey, Companies, About. Right: gold "Register" button (opens NEXT_PUBLIC_REGISTER_URL in a new tab).
+- Phone: hamburger menu with the same links and Register.
+
+==================================================
+5. HERO (#top)
+==================================================
+Problem to solve: the old hero felt dull, unclear what GDP Talks is, and the chat looked like a live chat. The hero must say what it is and present the conversation clearly as a short story.
+Layout: tall scroll section with a sticky one-screen inner (the scroll drives the story). Whole block vertically centred, everything left aligned. Two columns on desktop, stacked on phones in this order: title, what it is, story.
+Left column:
+ 1. Subtitle "smart people should keep meeting" (type-sub, navy 700).
+ 2. Heading "GDP Talks" (type-head).
+ 3. Story: label "A SHORT STORY" with a counter "n / 14". Shows ONE message at a time, no frame, as you scroll. Text uses the chat size. Before scrolling: "Scroll down to read it, one message at a time". No "online" status, no typing dots, no read ticks, no timestamps.
+ 4. After the whole conversation: a gold button "Meet Doc D" that goes to /doc-d.
+Right column:
+ 1. Card "WHAT IS GDP TALKS?": "A hackathon where students solve real problem statements brought by companies. Pick a sector, build something that works, and learn how to ship it." Buttons: Register (external) and Browse problems (#companies).
+ 2. The line "Follow the conversation between Doc D and Engineer X" with an arrow pointing to the story.
+ 3. Asset so the page does not feel empty (desktop): three stacked, gently bobbing sheets showing real sample problem titles (Devtools, Ed Tech, Gaming) and chips "8 sectors" and "24 sample problems". The numbers are COMPUTED from the data, never invented.
+
+==================================================
+6. THE STORY (conversation between Engineer X and Doc D)
+==================================================
+Engineer X is a student who vibe codes. Doc D is his mentor. 14 messages, alternating, X first, shown one per scroll step:
+ X: Doc D, my app works perfectly. I built the whole thing in one weekend.
+ D: Nice work. Where is it running?
+ X: On my laptop. localhost:3000.
+ D: So nobody else can see it yet. Hosting is the other half of the job.
+ X: Honestly, I have no idea how hosting or deployment works.
+ D: Start small: build it, set your environment variables, pick a host, ship.
+ X: Environment variables? I pasted my API key straight into the code.
+ D: Please never do that. Secrets live in environment config, not in your repo.
+ X: Understood. What else am I missing?
+ D: A database that is not on your laptop, a domain, and a deploy you can repeat.
+ X: So deployment is not the last step. It is part of the build.
+ D: Exactly. Ship early, ship often, and let real users show you what breaks.
+ X: New plan: deploy a tiny version today, then keep improving it.
+ D: That is the spirit. Smart people should keep meeting.
+Stages: intro, 14 messages, redirect. Redirect target: /doc-d.
+Doc D page (static, honest): badge "Coming soon", heading "Doc D will soon come conquering your browser", short text, "Back to the story" button, a disabled-looking "Ask Doc D anything..." field.
+
+==================================================
+7. STUDENT JOURNEY (#journey)
+==================================================
+Heading "From registration to a refined idea". Three steps on a vertical line that fills as you scroll:
+ 1. Registration: create your profile on Unstop (or the placeholder link) and register alone or with a team. Free. Has the only button: "Register on Unstop" (new tab).
+ 2. Onboarding: meet the community, learn the rules, get tools ready before problem statements go live.
+ 3. Selection and refining: pick a company problem statement, shape the idea with mentors, refine it into something you can ship.
+
+==================================================
+8. COMPANY ROUTING (#companies)
+==================================================
+Heading "The sectors we are approaching". Desktop: logo box on the LEFT (company logo placeholder at public/logo-placeholder.svg), the 8 sectors listed on the RIGHT. Each row links to its sector page.
+Sectors in order: Devtools, Fashion, Services, Product Services, Ed Tech, Inference Provider, Gaming, D2C Brands.
+Hover or keyboard focus on a row: the whole section softly changes to that sector's tint, the logo box shows the sector icon, name and tagline. Text stays navy. Leaving returns to cream and the logo.
+Soft tints: sky #E1E8F0, mist #E8ECF2, butter #F8E8C0, honey #F0E1C3 (WCAG AAA text contrast, nearly the cream colour).
+ Devtools sky (Code icon), Fashion butter (Shirt), Services mist (Briefcase), Product Services honey (Package), Ed Tech sky (GraduationCap), Inference Provider mist (Cpu), Gaming sky (Gamepad2), D2C Brands butter (ShoppingBag).
+Phones: no logo box. Tap-to-expand rows (accordion): tapping opens tagline, summary and a "See <sector> problems" link right under the row; one open at a time.
+Both layouts are in the DOM and switched with CSS, so there is no flash on load.
+
+==================================================
+9. SECTOR PAGES (/sectors/[slug])
+==================================================
+One template for all 8 sectors, tinted like the hover state. Content: back link, icon, name, tagline, summary, 3 sample problem cards, then the form "Try your own".
+Each problem has: title, one-line brief (card), description (2 paragraphs), goals (3), considerations (3).
+Clicking a card opens an accessible pop-up (portal, focus trap, Escape and backdrop close, body scroll lock, focus restore) with the full description, "What we are hoping for", "Keep in mind", a mailto button "Email us your approach" (to NEXT_PUBLIC_CONTACT_EMAIL, subject "[GDP Talks] Sector: Title" pre-filled) and "Start your own version" (closes, fills the form with the problem, scrolls to it).
+Form (companies): Company name, Work email, Your problem statement. Sends to POST /api/submissions. Shows "Thank you" on success, the API error on failure, keeps the typed values on error.
+Sample problems per sector (placeholders, replace with real ones):
+ Devtools: Make a new codebase easy to understand; Explain failing builds in plain language; From localhost to live in one guided path
+ Fashion: Find the right size the first time; Plan collection drops with less guesswork; Make secondhand feel premium
+ Services: Scheduling that survives no-shows; Quotes in minutes, not days; Keep clients informed without more emails
+ Product Services: Turn support tickets into product insight; Make renewals simple and honest; Onboard customers consistently across web and mobile
+ Ed Tech: Keep learners engaged past week two; Give feedback on code and writing at scale; Show real skills, not just certificates
+ Inference Provider: Explain latency and cost to non-experts; Pick the right model for the job; Make the first API call painless
+ Gaming: Match players fairly in small communities; Onboard new players without a tutorial wall; Moderate chat without killing the fun
+ D2C Brands: Turn first-time buyers into repeat customers; Make product pages answer questions before they are asked; Understand which channels really drive sales
+
+==================================================
+10. ABOUT (#about)
+==================================================
+Dark navy section. Opens with the tagline as the heading: "Smart people should keep meeting". Short paragraph, then three pillars: Keep meeting, Learn to ship, Solve real problems.
+
+==================================================
+11. FOOTER
+==================================================
+Navy 950, standard footer: logo, one-line pitch, social icons (LinkedIn, Instagram, X, GitHub, placeholder links), Explore links (Home, Student journey, Companies, About, Doc D), Sectors list, copyright and a placeholder email.
+
+==================================================
+12. BACKEND (route handlers)
+==================================================
+GET /api/health -> {ok, db:'mongodb'|'memory'}; GET /api/sectors; GET /api/sectors/[slug] (404 {error:'Sector not found'}); GET /api/journey; POST /api/submissions.
+Submission validation: sector must be a known slug; companyName non-blank, max 120; email valid, max 200; question 10 to 2000 characters; non-string input rejected; malformed JSON gives 400 {error:'Invalid JSON'}; errors returned as {errors:{field:message}}.
+Rate limit: 20 submissions per 15 minutes per address, 429 with Retry-After.
+MongoDB optional, cached connection, 30 second back-off after a failure, seeded from content/content.json.
+
+==================================================
+13. TESTS
+==================================================
+- Hero: one message at a time, counter, no live-chat cues, redirect only at the end, description and counts from data.
+- Section order (top, journey, companies, about, footer), About opens with the tagline, nav order.
+- Companies: 8 links, hover tint, navy text, keyboard focus, accordion on phones.
+- Sector page: all 8 render, form success and error, pop-up behaviour (focus, Escape, backdrop, scroll lock, start own version, mailto).
+- Colour: hover tints barely differ from cream (< 1.15), text on tints at least 7:1.
+- Typography tokens (1.6 and 0.55), fonts present, left alignment, reduced motion.
+- API routes: every endpoint, validation, rate limit; content integrity.
+
+==================================================
+14. CONSTRAINTS
+==================================================
+- No invented statistics, dates, prizes or company names. The company logo, email, social links and Unstop link are placeholders.
+- Sample problem statements are placeholders until real ones are supplied.
+- Keep the content in one file (content/content.json).
+- No decisions beyond what is written here: ask first.
