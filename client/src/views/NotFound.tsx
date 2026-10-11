@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
 export default function NotFound() {
@@ -12,7 +12,7 @@ export default function NotFound() {
           This page does not exist
         </h1>
         <Link
-          to="/"
+          href="/"
           className="mt-8 inline-flex items-center gap-2 rounded-full bg-gold-400 px-6 py-3 font-heading text-sm font-semibold text-navy-950 hover:bg-gold-200"
         >
           <ArrowLeft size={16} aria-hidden="true" />

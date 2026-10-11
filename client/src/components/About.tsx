@@ -1,3 +1,5 @@
+'use client';
+
 import { Handshake, Rocket, Lightbulb, type LucideIcon } from 'lucide-react';
 import FloatingBackdrop from './FloatingBackdrop';
 import { useInView } from '../lib/useInView';

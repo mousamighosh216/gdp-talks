@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ArrowLeft, Bot, Send } from 'lucide-react';
 import FloatingBackdrop from '../components/FloatingBackdrop';
 
@@ -22,7 +22,7 @@ export default function DocD() {
 
         <div className="mt-8 flex flex-wrap items-center gap-4">
           <Link
-            to="/#top"
+            href="/#top"
             className="inline-flex items-center gap-2 rounded-full bg-gold-400 px-6 py-3 font-heading text-sm font-semibold text-navy-950 transition hover:bg-gold-200"
           >
             <ArrowLeft size={16} aria-hidden="true" />

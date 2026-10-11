@@ -1,8 +1,10 @@
+'use client';
+
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowUpRight, ChevronDown } from 'lucide-react';
 import FloatingBackdrop from './FloatingBackdrop';
-import { fallbackSectors } from '../lib/api';
 import { SECTOR_UI, IDLE_THEME } from '../lib/sectors';
 import { useMediaQuery } from '../lib/useMediaQuery';
 import type { Sector } from '../types';
@@ -11,15 +13,17 @@ const DIVIDER = { borderColor: 'color-mix(in srgb, currentColor 18%, transparent
 
 /** Phones: tap a sector and its details open right under it, so the change is always in view. */
 function SectorAccordion({
+  sectors,
   openSlug,
   onToggle,
 }: {
+  sectors: Sector[];
   openSlug: string | null;
   onToggle: (slug: string) => void;
 }) {
   return (
     <ul>
-      {fallbackSectors.map((s) => {
+      {sectors.map((s) => {
         const ui = SECTOR_UI[s.slug];
         const Icon = ui.icon;
         const open = openSlug === s.slug;
@@ -52,7 +56,7 @@ function SectorAccordion({
                 <p className="font-heading text-lg font-medium leading-snug">{s.tagline}</p>
                 <p className="mt-2 leading-relaxed opacity-85">{s.summary}</p>
                 <Link
-                  to={`/sectors/${s.slug}`}
+                  href={`/sectors/${s.slug}`}
                   className="mt-4 inline-flex items-center gap-2 rounded-full bg-navy-950 px-5 py-2.5 font-heading text-sm font-semibold text-cream transition hover:bg-navy-700"
                 >
                   See {s.name} problems
@@ -67,12 +71,12 @@ function SectorAccordion({
   );
 }
 
-export default function Companies() {
+export default function Companies({ sectors }: { sectors: Sector[] }) {
   const isDesktop = useMediaQuery('(min-width: 768px)');
   const [active, setActive] = useState<Sector | null>(null); // desktop: hovered / focused sector
   const [openSlug, setOpenSlug] = useState<string | null>(null); // phone: expanded sector
 
-  const current = isDesktop ? active : (fallbackSectors.find((s) => s.slug === openSlug) ?? null);
+  const current = isDesktop ? active : (sectors.find((s) => s.slug === openSlug) ?? null);
   const ui = current ? SECTOR_UI[current.slug] : null;
   const theme = ui ?? IDLE_THEME;
   const ActiveIcon = ui?.icon;
@@ -109,10 +113,12 @@ export default function Companies() {
               ) : (
                 <div className="flex flex-col items-start">
                   {/* Replace /public/logo-placeholder.svg with the company logo */}
-                  <img
+                  <Image
                     src="/logo-placeholder.svg"
                     alt="Company logo placeholder"
                     className="h-40 w-40"
+                    width={160}
+                    height={160}
                   />
                   <p className="mt-4 text-sm opacity-75">Hover a sector to explore it</p>
                 </div>
@@ -121,10 +127,10 @@ export default function Companies() {
 
             {/* Sector list */}
             <ul onMouseLeave={() => setActive(null)}>
-              {fallbackSectors.map((s, i) => (
+              {sectors.map((s, i) => (
                 <li key={s.slug} className="border-b" style={DIVIDER}>
                   <Link
-                    to={`/sectors/${s.slug}`}
+                    href={`/sectors/${s.slug}`}
                     onMouseEnter={() => setActive(s)}
                     onFocus={() => setActive(s)}
                     onBlur={() => setActive(null)}
@@ -146,6 +152,7 @@ export default function Companies() {
           <div className="mt-8">
             <p className="mb-2 text-sm opacity-75">Tap a sector to see what it is about.</p>
             <SectorAccordion
+              sectors={sectors}
               openSlug={openSlug}
               onToggle={(slug) => setOpenSlug((cur) => (cur === slug ? null : slug))}
             />

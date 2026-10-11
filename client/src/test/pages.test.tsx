@@ -2,7 +2,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect } from 'vitest';
 import App from '../App';
-import Home from '../pages/Home';
+import Home from '../views/Home';
 import FloatingBackdrop, { type BackdropPreset } from '../components/FloatingBackdrop';
 import { fallbackSectors } from '../lib/api';
 import { contrastRatio } from '../lib/color';

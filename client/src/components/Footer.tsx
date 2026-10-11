@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Mail } from 'lucide-react';
 import { FaLinkedinIn, FaInstagram, FaXTwitter, FaGithub } from 'react-icons/fa6';
 import Brand from './Brand';
@@ -51,7 +51,7 @@ export default function Footer() {
           <ul className="mt-5 space-y-3">
             {EXPLORE.map(([to, label]) => (
               <li key={to}>
-                <Link to={to} className="text-cream/80 transition hover:text-gold-200">
+                <Link href={to} className="text-cream/80 transition hover:text-gold-200">
                   {label}
                 </Link>
               </li>
@@ -67,7 +67,7 @@ export default function Footer() {
             {fallbackSectors.map((s) => (
               <li key={s.slug}>
                 <Link
-                  to={`/sectors/${s.slug}`}
+                  href={`/sectors/${s.slug}`}
                   className="text-cream/80 transition hover:text-gold-200"
                 >
                   {s.name}

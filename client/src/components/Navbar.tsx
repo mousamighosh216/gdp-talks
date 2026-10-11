@@ -1,5 +1,7 @@
+'use client';
+
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import Brand from './Brand';
 import { REGISTER_URL } from '../lib/api';
@@ -27,7 +29,7 @@ export default function Navbar() {
           {LINKS.map((l) => (
             <li key={l.to}>
               <Link
-                to={l.to}
+                href={l.to}
                 className="font-heading text-sm font-medium text-navy-950 transition-colors hover:text-navy-500"
               >
                 {l.label}
@@ -64,7 +66,7 @@ export default function Navbar() {
             {LINKS.map((l) => (
               <li key={l.to}>
                 <Link
-                  to={l.to}
+                  href={l.to}
                   onClick={() => setOpen(false)}
                   className="block py-3 font-heading text-lg font-medium text-navy-950"
                 >

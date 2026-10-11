@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useId, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { Check, Mail, PenLine, X, type LucideIcon } from 'lucide-react';

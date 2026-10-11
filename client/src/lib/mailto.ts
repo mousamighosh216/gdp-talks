@@ -1,6 +1,6 @@
 import type { Problem, Sector } from '../types';
 
-export const CONTACT_EMAIL: string = import.meta.env.VITE_CONTACT_EMAIL || 'hello@example.com';
+export const CONTACT_EMAIL: string = process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'hello@example.com';
 
 /** Builds the "email us your approach" link, pre-filled with the sector and problem. */
 export function approachMailto(sector: Sector, problem: Problem, to: string = CONTACT_EMAIL): string {

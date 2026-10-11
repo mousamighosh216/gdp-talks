@@ -6,7 +6,7 @@ import { Routes, Route } from 'react-router-dom';
 =======
 import { within } from '@testing-library/react';
 >>>>>>> a6d74d4 (version 1 : GDP TALKS)
-import SectorPage from '../pages/Sector';
+import SectorPage from '../views/Sector';
 import { renderAt, stubFetch } from './utils';
 
 const page = (slug: string) =>

@@ -4,9 +4,7 @@ const supported = () => typeof window !== 'undefined' && typeof window.matchMedi
 
 /** Tracks a CSS media query. `fallback` is used where matchMedia does not exist (e.g. tests). */
 export function useMediaQuery(query: string, fallback = true): boolean {
-  const [matches, setMatches] = useState<boolean>(() =>
-    supported() ? window.matchMedia(query).matches : fallback
-  );
+  const [matches, setMatches] = useState<boolean>(fallback);
 
   useEffect(() => {
     if (!supported()) return;

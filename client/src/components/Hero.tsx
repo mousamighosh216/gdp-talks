@@ -1,6 +1,10 @@
+'use client';
+
 import { useState } from 'react';
 import { ArrowRight, Menu, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
+import Image from 'next/image';
+import heroImage from '../assets/GDPTalks.png';
 
 export default function Hero() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -57,7 +61,7 @@ export default function Hero() {
           </a>
 
           <Link
-            to="/register"
+            href="/register"
             className="rounded-xl bg-[#0A1E3F] px-7 py-4 font-heading text-sm font-bold uppercase tracking-wide text-[#F0EFEA] transition duration-300 hover:-translate-y-1 hover:bg-[#102F5C]"
           >
             Register Now
@@ -104,7 +108,7 @@ export default function Hero() {
           </a>
 
           <Link
-            to="/register"
+            href="/register"
             className="rounded-xl bg-[#0A1E3F] px-5 py-3 text-center font-heading text-sm font-bold text-[#F0EFEA]"
             onClick={() => setMobileMenuOpen(false)}
           >
@@ -123,10 +127,12 @@ export default function Hero() {
             aria-hidden="true"
           />
 
-          <img
-            src="../src/assets/GDPTalks.png"
+          <Image
+            src={heroImage}
             alt="GDP Talks 2026 illustration featuring creative building blocks and people collaborating"
             className="relative z-10 w-full max-w-[760px] object-contain drop-shadow-sm"
+            sizes="(max-width: 1024px) 100vw, 760px"
+            priority
           />
         </div>
 

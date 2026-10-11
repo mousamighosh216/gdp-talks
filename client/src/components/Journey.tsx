@@ -1,7 +1,9 @@
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, Check, Rocket, ListChecks, UserPlus, type LucideIcon } from 'lucide-react';
 import FloatingBackdrop from './FloatingBackdrop';
-import { useApi, fallbackJourney, REGISTER_URL } from '../lib/api';
+import { REGISTER_URL } from '../lib/api';
 import { useInView } from '../lib/useInView';
 import type { JourneyStep } from '../types';
 
@@ -57,8 +59,7 @@ function Step({ step, index }: { step: JourneyStep; index: number }) {
   );
 }
 
-export default function Journey() {
-  const steps = useApi<JourneyStep[]>('/api/journey', fallbackJourney);
+export default function Journey({ steps }: { steps: JourneyStep[] }) {
   const listRef = useRef<HTMLOListElement>(null);
   const [fill, setFill] = useState(0);
 

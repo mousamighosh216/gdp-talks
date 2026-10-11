@@ -1,10 +1,11 @@
+'use client';
+
 import { useState, type ChangeEvent, type FormEvent } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import Link from 'next/link';
 import { ArrowLeft, ArrowUpRight, CheckCircle2, Loader2, Send, Sparkles } from 'lucide-react';
-import NotFound from './NotFound';
 import FloatingBackdrop from '../components/FloatingBackdrop';
 import ProblemModal from '../components/ProblemModal';
-import { useApi, fallbackSectors, submitQuestion } from '../lib/api';
+import { submitQuestion } from '../lib/api';
 import { SECTOR_UI } from '../lib/sectors';
 import type { Problem, Sector } from '../types';
 
@@ -18,7 +19,7 @@ const EMPTY: FormState = { companyName: '', email: '', question: '' };
 
 function SectorContent({ slug, fallback }: { slug: string; fallback: Sector }) {
   const ui = SECTOR_UI[slug];
-  const sector = useApi<Sector>(`/api/sectors/${slug}`, fallback);
+  const sector = fallback;
   const Icon = ui.icon;
 
   const [form, setForm] = useState<FormState>(EMPTY);
@@ -64,7 +65,7 @@ function SectorContent({ slug, fallback }: { slug: string; fallback: Sector }) {
         <FloatingBackdrop preset="companies" />
         <div className="relative mx-auto max-w-6xl px-5">
           <Link
-            to="/#companies"
+            href="/#companies"
             className="inline-flex items-center gap-2 font-heading text-sm font-semibold opacity-80 hover:opacity-100"
           >
             <ArrowLeft size={16} aria-hidden="true" />
@@ -259,10 +260,6 @@ function SectorContent({ slug, fallback }: { slug: string; fallback: Sector }) {
   );
 }
 
-export default function SectorPage() {
-  const { slug = '' } = useParams<{ slug: string }>();
-  const fallback = fallbackSectors.find((s) => s.slug === slug);
-  if (!fallback || !SECTOR_UI[slug]) return <NotFound />;
-  // key resets form and fetch state when moving between sectors
+export default function SectorPage({ slug, fallback }: { slug: string; fallback: Sector }) {
   return <SectorContent key={slug} slug={slug} fallback={fallback} />;
 }
