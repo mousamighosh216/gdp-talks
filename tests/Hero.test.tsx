@@ -8,12 +8,7 @@ import { setScrollProgress } from './utils';
 // stage 0 = intro, 1..14 = one message each, 15 = redirect
 const at = (stage: number) => (stage + 0.5) / STAGES;
 
-const sample = [
-  { sector: 'Devtools', title: 'Make error messages useful' },
-  { sector: 'Ed Tech', title: 'Keep learners coming back' },
-  { sector: 'Gaming', title: 'Match players fairly' },
-];
-const hero = () => render(<Hero sectorCount={8} problemCount={24} sample={sample} />);
+const hero = () => render(<Hero />);
 
 describe('Hero', () => {
   beforeEach(() => setScrollProgress(0));

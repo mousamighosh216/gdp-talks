@@ -2,11 +2,10 @@
 
 import { useRef } from 'react';
 import Link from 'next/link';
-import { ArrowDown, ArrowRight, ArrowUpRight, ChevronDown } from 'lucide-react';
+import { ArrowRight, ChevronDown } from 'lucide-react';
 import Avatar, { PEOPLE } from './Avatar';
 import FloatingBackdrop from './FloatingBackdrop';
 import HeroAsset from './HeroAsset';
-import { REGISTER_URL } from '@/lib/api';
 import { useScrollProgress } from '@/lib/useScrollProgress';
 import { STAGES, STORY, getChatState } from '@/lib/story';
 
@@ -50,7 +49,7 @@ export default function Hero() {
               A short story
             </p>
 
-            <div className="mt-3 min-h-[9.5rem] sm:min-h-[11rem]">
+            <div className="mt-3 min-h-38 sm:min-h-44">
               {message ? (
                 <div
                   key={chat.index}
