@@ -6,11 +6,12 @@ import { Menu, X, ArrowUpRight } from 'lucide-react';
 import Brand from './Brand';
 import { REGISTER_URL } from '@/lib/api';
 
-// Same order as the page: home, student journey, companies, about.
+// Navigation links aligned with the page section order
 const LINKS = [
   { to: '/#top', label: 'Home' },
+  { to: '/#what', label: 'What?' },
   { to: '/#journey', label: 'Student journey' },
-  { to: '/#companies', label: 'Companies' },
+  { to: '/#companies', label: 'Industries' },
   { to: '/#about', label: 'About' },
 ];
 

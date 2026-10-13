@@ -2,81 +2,39 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, ChevronDown } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import FloatingBackdrop from './FloatingBackdrop';
 import { SECTOR_UI, IDLE_THEME } from '@/lib/sectors';
 import type { SectorSummary } from '@/lib/types';
 
-const DIVIDER = { borderColor: 'color-mix(in srgb, currentColor 18%, transparent)' };
-
-/** Phones: tap a sector and its details open right under it, so the change is always in view. */
-function SectorAccordion({
-  sectors,
-  openSlug,
-  onToggle,
-}: {
-  sectors: SectorSummary[];
-  openSlug: string | null;
-  onToggle: (slug: string) => void;
-}) {
-  return (
-    <ul>
-      {sectors.map((s) => {
-        const ui = SECTOR_UI[s.slug];
-        const Icon = ui.icon;
-        const open = openSlug === s.slug;
-        const panelId = `sector-panel-${s.slug}`;
-        return (
-          <li key={s.slug} className="border-b" style={DIVIDER}>
-            <button
-              type="button"
-              aria-expanded={open}
-              aria-controls={panelId}
-              onClick={() => onToggle(s.slug)}
-              className="flex w-full items-center gap-4 py-4 text-left font-heading text-xl font-semibold"
-            >
-              <span
-                className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl transition-colors duration-500"
-                style={{ backgroundColor: ui.boxBg, color: ui.boxFg }}
-              >
-                <Icon size={22} aria-hidden="true" />
-              </span>
-              <span className="flex-1">{s.name}</span>
-              <ChevronDown
-                size={22}
-                aria-hidden="true"
-                className={`shrink-0 transition-transform duration-300 ${open ? 'rotate-180' : ''}`}
-              />
-            </button>
-
-            {open && (
-              <div id={panelId} className="pop pb-6 pl-[3.75rem] pr-1">
-                <p className="font-heading text-lg font-medium leading-snug">{s.tagline}</p>
-                <p className="mt-2 leading-relaxed opacity-85">{s.summary}</p>
-                <Link
-                  href={`/sectors/${s.slug}`}
-                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-navy-950 px-5 py-2.5 font-heading text-sm font-semibold text-cream transition hover:bg-navy-700"
-                >
-                  See {s.name} problems
-                  <ArrowUpRight size={16} aria-hidden="true" />
-                </Link>
-              </div>
-            )}
-          </li>
-        );
-      })}
-    </ul>
-  );
-}
-
 export default function Companies({ sectors }: { sectors: SectorSummary[] }) {
   const [active, setActive] = useState<SectorSummary | null>(null); // desktop: hovered / focused sector
-  const [openSlug, setOpenSlug] = useState<string | null>(null); // phone: expanded sector
+  const [openSlug, setOpenSlug] = useState<string | null>(sectors[0]?.slug ?? null); // phone: selected sector (defaults to first)
 
-  const current = active ?? sectors.find((s) => s.slug === openSlug) ?? null;
+  // Determine current active theme and data for desktop vs mobile
+  const currentDesktop = active ?? sectors.find((s) => s.slug === openSlug) ?? null;
+  const currentMobile = sectors.find((s) => s.slug === openSlug) ?? sectors[0] ?? null;
+  
+  const current = active ?? currentMobile;
   const ui = current ? SECTOR_UI[current.slug] : null;
   const theme = ui ?? IDLE_THEME;
-  const ActiveIcon = ui?.icon;
+
+  const ActiveIconDesktop = currentDesktop ? SECTOR_UI[currentDesktop.slug]?.icon : null;
+  const ActiveIconMobile = currentMobile ? SECTOR_UI[currentMobile.slug]?.icon : null;
+  const mobileUi = currentMobile ? SECTOR_UI[currentMobile.slug] : null;
+
+  // Pattern chunker to enforce [3, 2, 3] layout across both views
+  const rows: SectorSummary[][] = [];
+  const pattern = [3, 2, 3];
+  let currentIndex = 0;
+  let patternIndex = 0;
+
+  while (currentIndex < sectors.length) {
+    const chunkSize = pattern[patternIndex % pattern.length];
+    rows.push(sectors.slice(currentIndex, currentIndex + chunkSize));
+    currentIndex += chunkSize;
+    patternIndex++;
+  }
 
   return (
     <section
@@ -93,63 +51,125 @@ export default function Companies({ sectors }: { sectors: SectorSummary[] }) {
           The sectors we are approaching
         </h2>
 
-        <div className="mt-14 hidden items-center gap-16 md:grid md:grid-cols-2">
-            {/* Logo box */}
-            <div
-              className="relative grid aspect-square w-full max-w-md place-items-center overflow-hidden rounded-[2rem] p-8 shadow-xl shadow-navy-950/15 transition-colors duration-700 ease-out"
-              style={{ backgroundColor: theme.boxBg, color: theme.boxFg }}
-              aria-live="polite"
-            >
-              {current && ActiveIcon ? (
-                <div className="pop flex flex-col items-start" key={current.slug}>
-                  <ActiveIcon size={96} strokeWidth={1.5} aria-hidden="true" />
-                  <p className="mt-6 font-heading text-3xl font-bold">{current.name}</p>
-                  <p className="mt-2 max-w-xs text-lg opacity-85">{current.tagline}</p>
-                </div>
-              ) : (
-                <div className="flex flex-col items-start">
-                  {/* Replace /public/logo-placeholder.svg with the company logo */}
-                  <img
-                    src="/logo-placeholder.svg"
-                    alt="Company logo placeholder"
-                    className="h-40 w-40"
-                  />
-                  <p className="mt-4 text-sm opacity-75">Hover a sector to explore it</p>
-                </div>
-              )}
-            </div>
+        {/* ================= DESKTOP VIEW ================= */}
+        <div className="mt-14 hidden items-center gap-12 md:grid md:grid-cols-2 lg:gap-16">
+          {/* Logo box */}
+          <div
+            className="relative grid aspect-square w-full max-w-md place-items-center overflow-hidden rounded-[2rem] p-8 shadow-xl shadow-navy-950/15 transition-colors duration-700 ease-out"
+            style={{ backgroundColor: theme.boxBg, color: theme.boxFg }}
+            aria-live="polite"
+          >
+            {currentDesktop && ActiveIconDesktop ? (
+              <div className="pop flex flex-col items-start" key={currentDesktop.slug}>
+                <ActiveIconDesktop size={96} strokeWidth={1.5} aria-hidden="true" />
+                <p className="mt-6 font-heading text-3xl font-bold">{currentDesktop.name}</p>
+                <p className="mt-2 max-w-xs text-lg opacity-85">{currentDesktop.tagline}</p>
+              </div>
+            ) : (
+              <div className="flex flex-col items-start">
+                <img
+                  src="/logo-placeholder.svg"
+                  alt="Company logo placeholder"
+                  className="h-40 w-40"
+                />
+                <p className="mt-4 text-sm opacity-75">Hover a sector to explore it</p>
+              </div>
+            )}
+          </div>
 
-            {/* Sector list */}
-            <ul onMouseLeave={() => setActive(null)}>
-              {sectors.map((s, i) => (
-                <li key={s.slug} className="border-b" style={DIVIDER}>
-                  <Link
-                    href={`/sectors/${s.slug}`}
-                    onMouseEnter={() => setActive(s)}
-                    onFocus={() => setActive(s)}
-                    onBlur={() => setActive(null)}
-                    className="group flex items-center gap-4 py-4 font-heading text-xl font-semibold transition-transform duration-300 hover:translate-x-2 sm:text-2xl"
-                  >
-                    <span className="w-8 text-sm opacity-60">{String(i + 1).padStart(2, '0')}</span>
-                    <span className="flex-1">{s.name}</span>
-                    <ArrowUpRight
-                      size={22}
-                      className="opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
-                      aria-hidden="true"
-                    />
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          {/* Desktop Sector grid (3, 2, 3 layout) */}
+          <div onMouseLeave={() => setActive(null)} className="flex flex-col gap-6 lg:gap-8">
+            {rows.map((row, rowIndex) => (
+              <div key={rowIndex} className="flex flex-wrap items-center gap-3 lg:gap-4">
+                {row.map((s, itemIndex) => {
+                  const isActive = active?.slug === s.slug;
+                  return (
+                    <div key={s.slug} className="flex items-center gap-3 lg:gap-4">
+                      <Link
+                        href={`/sectors/${s.slug}`}
+                        onMouseEnter={() => setActive(s)}
+                        onFocus={() => setActive(s)}
+                        onBlur={() => setActive(null)}
+                        className={`font-heading text-lg font-semibold transition-all duration-300 xl:text-2xl ${
+                          isActive ? 'opacity-100 scale-105' : 'opacity-60 hover:opacity-100'
+                        }`}
+                      >
+                        {s.name}
+                      </Link>
+                      {itemIndex < row.length - 1 && (
+                        <span className="text-xl opacity-30" aria-hidden="true">&bull;</span>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
           </div>
-          <div className="mt-8 md:hidden">
-            <p className="mb-2 text-sm opacity-75">Tap a sector to see what it is about.</p>
-            <SectorAccordion
-              sectors={sectors}
-              openSlug={openSlug}
-              onToggle={(slug) => setOpenSlug((cur) => (cur === slug ? null : slug))}
-            />
+        </div>
+
+        {/* ================= MOBILE VIEW ================= */}
+        <div className="mt-8 flex flex-col gap-8 md:hidden">
+          <p className="text-xs font-semibold uppercase tracking-wider opacity-75">
+            Tap a sector to explore
+          </p>
+
+          {/* Mobile Sector Cluster (3, 2, 3 rows with bullets) */}
+          <div className="flex flex-col gap-4">
+            {rows.map((row, rowIndex) => (
+              <div key={rowIndex} className="flex flex-wrap items-center gap-2 sm:gap-3">
+                {row.map((s, itemIndex) => {
+                  const isSelected = openSlug === s.slug;
+                  return (
+                    <div key={s.slug} className="flex items-center gap-2 sm:gap-3">
+                      <button
+                        type="button"
+                        onClick={() => setOpenSlug(s.slug)}
+                        className={`text-left font-heading text-base font-semibold transition-all duration-300 sm:text-lg ${
+                          isSelected ? 'scale-105 opacity-100 underline decoration-2 underline-offset-4' : 'opacity-60'
+                        }`}
+                      >
+                        {s.name}
+                      </button>
+                      {itemIndex < row.length - 1 && (
+                        <span className="text-sm opacity-30" aria-hidden="true">&bull;</span>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
           </div>
+
+          {/* Dynamic Mobile Card */}
+          {currentMobile && mobileUi && ActiveIconMobile && (
+            <div
+              key={currentMobile.slug}
+              className="pop flex flex-col gap-4 rounded-2xl p-6 shadow-lg transition-colors duration-500 ease-out"
+              style={{ backgroundColor: mobileUi.boxBg, color: mobileUi.boxFg }}
+            >
+              <div className="flex items-center gap-3">
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-navy-950/10">
+                  <ActiveIconMobile size={28} strokeWidth={1.75} aria-hidden="true" />
+                </span>
+                <div>
+                  <h3 className="font-heading text-xl font-bold">{currentMobile.name}</h3>
+                  <p className="text-xs font-medium opacity-80">{currentMobile.tagline}</p>
+                </div>
+              </div>
+
+              <p className="text-sm leading-relaxed opacity-90">{currentMobile.summary}</p>
+
+              <Link
+                href={`/sectors/${currentMobile.slug}`}
+                className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-navy-950 px-5 py-2.5 font-heading text-sm font-semibold text-cream transition active:scale-95"
+              >
+                See {currentMobile.name} problems
+                <ArrowUpRight size={16} aria-hidden="true" />
+              </Link>
+            </div>
+          )}
+        </div>
+
       </div>
     </section>
   );

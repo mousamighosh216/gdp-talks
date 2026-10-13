@@ -1,6 +1,7 @@
 import Hero from '@/components/Hero';
 import Journey from '@/components/Journey';
 import Companies from '@/components/Companies';
+import WhatIsGDPTalks from '@/components/What';
 import About from '@/components/About';
 import { getJourney, getSectors } from '@/lib/data';
 
@@ -13,6 +14,7 @@ export default async function Home() {
   return (
     <>
       <Hero />
+      <WhatIsGDPTalks />
       <Journey steps={journey} />
       <Companies sectors={sectors} />
       <About />
