@@ -1,14 +1,13 @@
 import Link from 'next/link';
 import { Mail } from 'lucide-react';
-import { FaLinkedinIn, FaInstagram, FaXTwitter, FaGithub } from 'react-icons/fa6';
+import { FaLinkedinIn, FaInstagram, FaXTwitter } from 'react-icons/fa6';
 import Brand from './Brand';
 import { content } from '@/lib/content';
 
 const SOCIALS = [
-  { label: 'LinkedIn', href: '#', icon: FaLinkedinIn },
-  { label: 'Instagram', href: '#', icon: FaInstagram },
-  { label: 'X', href: '#', icon: FaXTwitter },
-  { label: 'GitHub', href: '#', icon: FaGithub },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/growth-driven-pioneers/', icon: FaLinkedinIn },
+  { label: 'Instagram', href: 'https://www.instagram.com/gdp.ind', icon: FaInstagram },
+  { label: 'X', href: 'https://x.com/GDP_IN', icon: FaXTwitter },
 ];
 
 const EXPLORE: Array<[string, string]> = [
@@ -34,6 +33,8 @@ export default function Footer() {
               <li key={label}>
                 <a
                   href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={label}
                   className="grid h-10 w-10 place-items-center rounded-full border border-cream/20 text-cream transition hover:border-gold-400 hover:text-gold-400"
                 >
@@ -86,7 +87,7 @@ export default function Footer() {
             className="inline-flex items-center gap-2 hover:text-gold-200"
           >
             <Mail size={16} aria-hidden="true" />
-            hello@example.com
+            gdp.rgpv@gmail.com
           </a>
         </div>
       </div>

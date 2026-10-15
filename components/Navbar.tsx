@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import Brand from './Brand';
-import { REGISTER_URL } from '@/lib/api';
+// import { REGISTER_URL } from '@/lib/api';
 
 // Navigation links aligned with the page section order
 const LINKS = [
@@ -37,7 +37,7 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
-          <li>
+          {/* <li>
             <a
               href={REGISTER_URL}
               target="_blank"
@@ -47,7 +47,7 @@ export default function Navbar() {
               Register
               <ArrowUpRight size={16} aria-hidden="true" />
             </a>
-          </li>
+          </li> */}
         </ul>
 
         <button
@@ -76,7 +76,7 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
-          <a
+          {/* <a
             href={REGISTER_URL}
             target="_blank"
             rel="noopener noreferrer"
@@ -84,7 +84,7 @@ export default function Navbar() {
           >
             Register
             <ArrowUpRight size={16} aria-hidden="true" />
-          </a>
+          </a> */}
         </div>
       )}
     </header>

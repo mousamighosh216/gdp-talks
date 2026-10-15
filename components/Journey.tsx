@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, Check, Rocket, ListChecks, UserPlus, type LucideIcon } from 'lucide-react';
+import { Check, Rocket, ListChecks, UserPlus, type LucideIcon } from 'lucide-react';
 import FloatingBackdrop from './FloatingBackdrop';
-import { REGISTER_URL } from '@/lib/api';
+// import { REGISTER_URL } from '@/lib/api';
 import type { JourneyStep } from '@/lib/types';
 
 const ICONS: LucideIcon[] = [UserPlus, Rocket, ListChecks];
@@ -142,7 +142,7 @@ function StepCard({ step, index }: { step: JourneyStep; index: number }) {
       </ul>
 
       {/* Bottom Action CTA Slot (fixed height keeps cards aligned) */}
-      <footer className="pt-2">
+      {/* <footer className="pt-2">
         {step.action === 'register' ? (
           <a
             href={REGISTER_URL}
@@ -156,7 +156,7 @@ function StepCard({ step, index }: { step: JourneyStep; index: number }) {
         ) : (
           <div className="h-11" aria-hidden="true" />
         )}
-      </footer>
+      </footer> */}
     </article>
   );
 }
