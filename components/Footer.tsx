@@ -25,8 +25,7 @@ export default function Footer() {
         <div className="md:col-span-2">
           <Brand light />
           <p className="mt-5 max-w-sm text-cream/75">
-            Smart people should keep meeting. A hackathon where students and companies solve real
-            problems together.
+            Not Just a HACKATHON a prototyping sprint that brings together technical experts, product agencies, and enterprise leaders to tackle complex digital challenges.
           </p>
           <ul className="mt-6 flex gap-3">
             {SOCIALS.map(({ label, href, icon: Icon }) => (
