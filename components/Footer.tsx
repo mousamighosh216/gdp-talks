@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { Mail } from 'lucide-react';
 import { FaLinkedinIn, FaInstagram, FaXTwitter } from 'react-icons/fa6';
-import Brand from './Brand';
 import { content } from '@/lib/content';
 
 const SOCIALS = [
