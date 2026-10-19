@@ -1,5 +1,5 @@
 
-name: GDP Talks CI
+name: GDPTalks CI
 
 on:
   push:
