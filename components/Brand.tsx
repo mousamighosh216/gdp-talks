@@ -1,11 +1,10 @@
 import Link from 'next/link';
-import { MessageSquareText } from 'lucide-react';
 
 export default function Brand({ light = false }: { light?: boolean }) {
   return (
     <Link href="/" className="inline-flex items-center gap-2.5" aria-label="GDP Talks home">
-      <span className="grid h-9 w-9 place-items-center rounded-xl bg-gold-400 text-navy-950">
-        <MessageSquareText size={20} strokeWidth={2.2} aria-hidden="true" />
+      <span className={`grid h-15 w-15 place-items-center rounded-xl text-navy-950 `}>
+        <img src="./favicon.svg" alt="GDP" />
       </span>
       <span
         className={`font-heading text-xl font-bold tracking-tight ${

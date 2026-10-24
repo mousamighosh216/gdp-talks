@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { Mail } from 'lucide-react';
 import { FaLinkedinIn, FaInstagram, FaXTwitter } from 'react-icons/fa6';
-import Brand from './Brand';
 import { content } from '@/lib/content';
 
 const SOCIALS = [
@@ -23,7 +22,11 @@ export default function Footer() {
     <footer className="bg-navy-950 text-cream">
       <div className="mx-auto grid max-w-6xl gap-12 px-5 py-16 md:grid-cols-4">
         <div className="md:col-span-2">
-          <Brand light />
+          <span
+            className="font-heading text-xl font-bold tracking-tight text-cream"
+          >
+        GDP Talks
+      </span>
           <p className="mt-5 max-w-sm text-cream/75">
             Not Just a HACKATHON a prototyping sprint that brings together technical experts, product agencies, and enterprise leaders to tackle complex digital challenges.
           </p>

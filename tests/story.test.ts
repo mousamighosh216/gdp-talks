@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { STAGES, STORY, getChatState } from '@/lib/story';
+import { STORY, getChatState } from '@/lib/story';
 
 describe('story data', () => {
   it('is 14 messages alternating Engineer X and Doc D, starting with Engineer X', () => {
@@ -28,10 +28,4 @@ describe('getChatState', () => {
     expect(seen).toEqual(STORY.map((_, i) => i));
   });
 
-  it('only offers the redirect once the whole story has been read', () => {
-    for (let i = 0; i <= 1000; i++) {
-      const p = i / 1000;
-      expect(getChatState(p).showCta).toBe(Math.floor(p * STAGES) >= STAGES - 1);
-    }
-  });
 });

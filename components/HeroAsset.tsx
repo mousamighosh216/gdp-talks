@@ -1,5 +1,5 @@
 import Image from "next/image";
-import heroImage from '@/assets/GDPTalks.png';
+import heroImage from '../assets/GDPTalks.png';
 
 /** Stack of problem-statement sheets. Counts and titles come from the content data, never invented. */
 export default function HeroAsset() {

@@ -1,0 +1,37 @@
+
+name: GDPTalks CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Check Next.js application
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Next.js types and build
+        run: npm run build
+
+      - name: Run type checks
+        run: npm run typecheck
+
+      - name: Run tests
+        run: npm run test --if-present

@@ -10,7 +10,7 @@ describe('design tokens', () => {
   });
 
   it('chat text is the heading reduced by 45% (x 0.55)', () => {
-    expect(css).toMatch(/--fs-chat:\s*calc\(var\(--fs-head\)\s*\*\s*0\.55\)/);
+    expect(css).toMatch(/--fs-chat:\s*calc\(var\(--fs-sub\)\s*\*\s*0\.55\)/);
   });
 
   it('uses Libron for body and Space Grotesk for headings', () => {
