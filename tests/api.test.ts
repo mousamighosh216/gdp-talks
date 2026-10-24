@@ -5,7 +5,7 @@ import { GET as sectors } from '@/app/api/sectors/route';
 import { GET as sector } from '@/app/api/sectors/[slug]/route';
 import { GET as journey } from '@/app/api/journey/route';
 import { POST as submit } from '@/app/api/submissions/route';
-import { resetRateLimit, rateLimit } from '@/lib/rateLimit';
+import { resetRateLimit, rateLimit } from '@/lib/registration/rateLimit';
 
 const json = async (res: Response) => (await res.json()) as any; // eslint-disable-line @typescript-eslint/no-explicit-any
 const post = (body: unknown, raw = false, ip = '1.1.1.1') =>

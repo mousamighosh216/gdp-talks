@@ -1,4 +1,4 @@
-import type { Problem, Sector } from './types';
+import type { Problem, Sector } from '../types';
 
 export const CONTACT_EMAIL: string = process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'hello@example.com';
 

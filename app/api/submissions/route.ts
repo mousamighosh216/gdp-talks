@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { saveSubmission } from '@/lib/data';
-import { rateLimit } from '@/lib/rateLimit';
-import { validateSubmission } from '@/lib/validation';
+import { rateLimit } from '@/lib/registration/rateLimit';
+import { validateSubmission } from '@/lib/sectors/validation';
+import nodemailer from 'nodemailer';
 
 export const dynamic = 'force-dynamic';
 
@@ -25,6 +25,30 @@ export async function POST(req: Request) {
   const result = validateSubmission(body);
   if (!result.ok) return NextResponse.json({ errors: result.errors }, { status: 400 });
 
-  await saveSubmission(result.value);
+  const data = result.value;
+
+  // Send email using credentials from .env.local
+  const transporter = nodemailer.createTransport({
+    host: process.env.MAIL_HOST,
+    port: Number(process.env.MAIL_PORT) || 587,
+    auth: {
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASS,
+    },
+  });
+
+  await transporter.sendMail({
+    from: process.env.MAIL_USER,
+    to: process.env.MAIN_PUBLIC_CONTACT_EMAIL, // or dynamic recipient
+    subject: 'New Problem Statement Submission',
+    text: `
+    Problem Statement Submission Details:
+    Sector: ${data.sector}
+    Company Name: ${data.companyName}
+    Email: ${data.email}
+    Question: ${data.question}
+    `
+  });
+
   return NextResponse.json({ ok: true }, { status: 201 });
 }

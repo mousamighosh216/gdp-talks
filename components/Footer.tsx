@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Mail } from 'lucide-react';
 import { FaLinkedinIn, FaInstagram, FaXTwitter } from 'react-icons/fa6';
-import { content } from '@/lib/content';
+import { content } from '@/lib/sectors/content';
 
 const SOCIALS = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/company/growth-driven-pioneers/', icon: FaLinkedinIn },

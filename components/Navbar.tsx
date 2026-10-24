@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import Brand from './Brand';
 // import { REGISTER_URL } from '@/lib/api';
 
@@ -17,6 +18,8 @@ const LINKS = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const isRegisterPage = pathname?.replace(/\/+$/, '') === '/register';
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-navy-950/10 bg-cream/95 backdrop-blur">
@@ -37,17 +40,17 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
-          {/* <li>
-            <a
-              href={REGISTER_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full bg-gold-400 px-5 py-2.5 font-heading text-sm font-semibold text-navy-950 transition hover:bg-gold-200"
-            >
-              Register
-              <ArrowUpRight size={16} aria-hidden="true" />
-            </a>
-          </li> */}
+          {!isRegisterPage && (
+            <li>
+              <a
+                href="/register"
+                className="inline-flex items-center gap-1.5 rounded-full bg-gold-400 px-5 py-2.5 font-heading text-sm font-semibold text-navy-950 transition hover:bg-gold-200"
+              >
+                Register
+                <ArrowUpRight size={16} aria-hidden="true" />
+              </a>
+            </li>
+          )}
         </ul>
 
         <button
@@ -76,15 +79,15 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
-          {/* <a
-            href={REGISTER_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-gold-400 px-5 py-3 font-heading text-sm font-semibold text-navy-950"
-          >
-            Register
-            <ArrowUpRight size={16} aria-hidden="true" />
-          </a> */}
+          {!isRegisterPage && (
+            <a
+              href="/register"
+              className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-gold-400 px-5 py-3 font-heading text-sm font-semibold text-navy-950"
+            >
+              Register
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </a>
+          )}
         </div>
       )}
     </header>

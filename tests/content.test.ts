@@ -1,6 +1,6 @@
 import { test } from 'vitest';
 import assert from 'node:assert/strict';
-import { content } from '@/lib/content';
+import { content } from '@/lib/sectors/content';
 
 test('there are 8 sectors with unique slugs', () => {
   const slugs = content.sectors.map((s) => s.slug);

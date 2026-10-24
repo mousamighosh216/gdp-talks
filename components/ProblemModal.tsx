@@ -3,7 +3,7 @@
 import { useEffect, useId, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { Check, Mail, PenLine, X, type LucideIcon } from 'lucide-react';
-import { approachMailto } from '@/lib/mailto';
+import { approachMailto } from '@/lib/sectors/mailto';
 import type { Problem, Sector } from '@/lib/types';
 
 interface Props {

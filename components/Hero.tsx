@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react';
 import Avatar, { PEOPLE } from './Avatar';
 import FloatingBackdrop from './FloatingBackdrop';
 import HeroAsset from './HeroAsset';
-import { STORY } from '@/lib/story';
+import { STORY } from '@/lib/docandengi/story';
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);

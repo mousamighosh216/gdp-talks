@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { approachMailto } from '@/lib/mailto';
-import { content } from '@/lib/content';
+import { approachMailto } from '@/lib/sectors/mailto';
+import { content } from '@/lib/sectors/content';
 
 describe('approachMailto', () => {
   it('pre-fills subject and body with the sector and problem', () => {

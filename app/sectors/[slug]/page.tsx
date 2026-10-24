@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import SectorView from '@/components/SectorView';
-import { getSector } from '@/lib/data';
-import { content } from '@/lib/content';
+import { getSector } from '@/lib/sectors/data';
+import { content } from '@/lib/sectors/content';
 
 export const dynamic = 'force-dynamic';
 

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import FloatingBackdrop from './FloatingBackdrop';
-import { SECTOR_UI, IDLE_THEME } from '@/lib/sectors';
+import { SECTOR_UI, IDLE_THEME } from '@/lib/sectors/sectors';
 import type { SectorSummary } from '@/lib/types';
 
 export default function Companies({ sectors }: { sectors: SectorSummary[] }) {
