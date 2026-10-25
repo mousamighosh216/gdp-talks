@@ -63,7 +63,7 @@ export function validateRegistration(body: unknown): RegistrationResult {
     const name = clean(r.name);
     const email = clean(r.email).toLowerCase();
     const phone = normalizePhone(typeof r.phone === 'string' ? r.phone : '');
-    if (name.length < 2 || name.length > 80) errors[`members.${i}.name`] = 'Enter the full name';
+    if (name.length < 2 || name.length > 80 || !validNamePattern.test(name)) errors[`members.${i}.name`] = 'Enter the full name';
     if (!EMAIL.test(email) || email.length > 200) errors[`members.${i}.email`] = 'Enter a valid email';
     if (!phone) errors[`members.${i}.phone`] = 'Enter a 10 digit mobile number';
     return { name, email, phone };
