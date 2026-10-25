@@ -147,7 +147,7 @@ function StepCard({ step, index }: { step: JourneyStep; index: number }) {
             href="/register"
             className="inline-flex items-center gap-2.5 rounded-full bg-navy-950 px-7 py-3 font-heading text-sm font-semibold text-cream shadow-md transition hover:bg-navy-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-400"
           >
-            Register on Unstop
+            Register now
             <ArrowUpRight size={16} aria-hidden="true" />
           </a>
         ) : (
