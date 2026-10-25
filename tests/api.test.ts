@@ -1,5 +1,16 @@
 // @vitest-environment node
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+const { sendMail } = vi.hoisted(() => ({
+  sendMail: vi.fn().mockResolvedValue(undefined),
+}));
+
+vi.mock('nodemailer', () => ({
+  default: {
+    createTransport: () => ({ sendMail }),
+  },
+}));
+
 import { GET as health } from '@/app/api/health/route';
 import { GET as sectors } from '@/app/api/sectors/route';
 import { GET as sector } from '@/app/api/sectors/[slug]/route';
@@ -23,7 +34,10 @@ const valid = {
   question: 'How do we keep new players for more than one session?',
 };
 
-beforeEach(() => resetRateLimit());
+beforeEach(() => {
+  resetRateLimit();
+  sendMail.mockClear();
+});
 
 describe('GET routes', () => {
   it('health reports the in-memory store', async () => {
@@ -70,6 +84,7 @@ describe('POST /api/submissions', () => {
     const res = await post(valid);
     expect(res.status).toBe(201);
     expect(await json(res)).toEqual({ ok: true });
+    expect(sendMail).toHaveBeenCalledOnce();
   });
 
   it('rejects an empty body with an error for every field', async () => {
