@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getJourney } from '@/lib/data';
+import { getJourney } from '@/lib/sectors/data';
 
 export const dynamic = 'force-dynamic';
 

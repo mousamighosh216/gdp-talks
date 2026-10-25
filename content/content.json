@@ -3,11 +3,11 @@
     {
       "order": 1,
       "title": "Registration",
-      "summary": "Registration links will soon be live.",
+      "summary": "Registration is open to all students. Book your spot now.",
       "details": [
-        "Sign up or log in on the hosting platform",
-        "Add your college, skills and team details",
-        "Receive your confirmation and welcome note by email"
+        "Fill all the required details in the registration form",
+        "Add your college and team details",
+        "Submit your registration"
       ],
       "action": "register"
     },

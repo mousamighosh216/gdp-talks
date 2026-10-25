@@ -1,4 +1,4 @@
-import type { ChatMessage } from './types';
+import type { ChatMessage } from '../types';
 
 // A short story: Engineer X (a student who vibe codes) learns about hosting and deployment
 // from Doc D. It is an illustration, not a live chat, and is shown one message at a time.

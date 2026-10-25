@@ -6,8 +6,8 @@ import './globals.css';
 export const metadata: Metadata = {
   title: { default: 'GDP Talks', template: '%s | GDP Talks' },
   description:
-    'GDP Talks is a hackathon where students solve real problem statements brought by companies. Smart people should keep meeting.',
-  icons: { icon: '/favicon.svg' },
+    'Not Just a HACKATHON a prototyping sprint that brings together technical experts, product agencies, and enterprise leaders to tackle complex digital challenges.',
+  icons: { icon: '/favicon.png' },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

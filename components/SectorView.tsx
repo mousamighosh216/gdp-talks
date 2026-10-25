@@ -14,7 +14,7 @@ import { ArrowLeft, ArrowUpRight, CheckCircle2, Loader2, Send, Sparkles } from '
 import FloatingBackdrop from '@/components/FloatingBackdrop';
 import ProblemModal from '@/components/ProblemModal';
 import { submitQuestion } from '@/lib/api';
-import { SECTOR_UI } from '@/lib/sectors';
+import { SECTOR_UI } from '@/lib/sectors/sectors';
 import type { Problem, Sector } from '@/lib/types';
 
 const inputClass =

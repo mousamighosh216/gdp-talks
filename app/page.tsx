@@ -3,7 +3,7 @@ import Journey from '@/components/Journey';
 import Companies from '@/components/Companies';
 import WhatIsGDPTalks from '@/components/What';
 import About from '@/components/About';
-import { getJourney, getSectors } from '@/lib/data';
+import { getJourney, getSectors } from '@/lib/sectors/data';
 
 export const dynamic = 'force-dynamic';
 

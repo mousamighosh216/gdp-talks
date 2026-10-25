@@ -1,5 +1,5 @@
 import { content } from './content';
-import type { SubmissionPayload } from './types';
+import type { SubmissionPayload } from '../types';
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { STORY, getChatState } from '@/lib/story';
+import { STORY, getChatState } from '@/lib/docandengi/story';
 
 describe('story data', () => {
   it('is 14 messages alternating Engineer X and Doc D, starting with Engineer X', () => {
