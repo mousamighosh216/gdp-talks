@@ -16,7 +16,7 @@ export default function DocD() {
         </span>
 
         <h1 className="type-head mt-6 max-w-3xl font-heading font-bold tracking-tight">
-          Doc D will soon come conquering your browser
+          Doc D is coming to answer your questions about building, hosting and shipping.
         </h1>
         <p className="mt-5 max-w-xl text-lg leading-relaxed text-cream/75">
           Soon you will be able to talk to Doc D yourself and ask him anything about building,
@@ -25,7 +25,7 @@ export default function DocD() {
 
         <div className="mt-8 flex flex-wrap items-center gap-4">
           <Link
-            href="/#top"
+            href="/"
             className="inline-flex items-center gap-2 rounded-full bg-gold-400 px-6 py-3 font-heading text-sm font-semibold text-navy-950 transition hover:bg-gold-200"
           >
             <ArrowLeft size={16} aria-hidden="true" />

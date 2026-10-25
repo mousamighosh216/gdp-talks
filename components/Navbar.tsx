@@ -9,7 +9,7 @@ import Brand from './Brand';
 
 // Navigation links aligned with the page section order
 const LINKS = [
-  { to: '/#top', label: 'Home' },
+  { to: '/', label: 'Home' },
   { to: '/#what', label: 'What?' },
   { to: '/#journey', label: 'Student journey' },
   { to: '/#companies', label: 'Industries' },

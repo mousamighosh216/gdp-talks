@@ -163,12 +163,6 @@ function BlueprintItem({ card, reduce }: { card: BlueprintCard; reduce: boolean 
 
           <p className="mt-3 text-sm leading-relaxed text-navy-950/80">{card.description}</p>
         </div>
-
-        <div className="mt-8 border-t border-navy-950/5 pt-4">
-          <span className="font-heading text-xs font-semibold text-navy-500 transition-colors group-hover:text-navy-950">
-            Learn more &rarr;
-          </span>
-        </div>
       </article>
     </motion.li>
   );
