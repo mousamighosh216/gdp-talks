@@ -40,3 +40,4 @@ export interface ChatMessage {
   from: 'x' | 'd';
   text: string;
 }
+

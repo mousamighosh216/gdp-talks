@@ -72,8 +72,8 @@ export default function Hero() {
             aria-live="polite"
             aria-label="Story: Engineer X learns about hosting from Doc D"
           >
-            <p className="font-heading text-xs font-semibold uppercase tracking-widest text-navy-500">
-              A short story
+            <p className="font-heading text-xs font-semibold uppercase tracking-widest text-navy-700">
+              Meet Doc D & Engineer X
             </p>
 
             <div className="mt-3 min-h-38 sm:min-h-44">

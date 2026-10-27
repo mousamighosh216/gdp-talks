@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { rateLimit } from '@/lib/registration/rateLimit';
 import { validateRegistration } from '@/lib/registration/registration';
+import { sendRegistrationConfirmation } from '@/lib/registration/email';
 import { makeReference, saveRegistration } from '@/lib/registration/registrationStore';
 
 export const dynamic = 'force-dynamic';
@@ -36,5 +37,14 @@ export async function POST(req: Request) {
     const payload = saved.field ? { errors: { [saved.field]: saved.message } } : { error: saved.message };
     return NextResponse.json(payload, { status: saved.status });
   }
-  return NextResponse.json({ ok: true, reference: saved.reference }, { status: 201 });
+
+  let emailSent = true;
+  try {
+    await sendRegistrationConfirmation(saved.reference, result.value);
+  } catch (error) {
+    emailSent = false;
+    console.error('Registration confirmation email failed:', error);
+  }
+
+  return NextResponse.json({ ok: true, reference: saved.reference, emailSent }, { status: 201 });
 }

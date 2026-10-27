@@ -131,7 +131,7 @@ function Section({
 type Status =
   | { state: 'idle' | 'sending' }
   | { state: 'error'; message: string }
-  | { state: 'done'; reference: string };
+  | { state: 'done'; reference: string; emailSent: boolean };
 
 export default function RegisterForm() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -190,11 +190,12 @@ export default function RegisterForm() {
       });
       const body = (await res.json().catch(() => ({}))) as {
         reference?: string;
+        emailSent?: boolean;
         error?: string;
         errors?: FieldErrors;
       };
       if (res.ok && body.reference) {
-        setStatus({ state: 'done', reference: body.reference });
+        setStatus({ state: 'done', reference: body.reference, emailSent: body.emailSent === true });
         window.scrollTo({ top: 0 });
         return;
       }
@@ -225,6 +226,11 @@ export default function RegisterForm() {
         <p className="mt-2 max-w-xl text-lg leading-relaxed text-navy-950/85">
           {teamName.trim()} is registered with {roster.length} members. Keep this reference: you
           will need it if you contact us about your team.
+        </p>
+        <p className="mt-2 max-w-xl text-navy-950/85">
+          {status.emailSent
+            ? 'A confirmation email with the registration details and reference has been sent to each team member.'
+            : 'Your registration is saved, but we could not send the confirmation emails. Keep the reference above and contact the organisers if needed.'}
         </p>
         <p className="mt-5 inline-block rounded-2xl bg-navy-950 px-5 py-3 font-heading text-2xl font-bold tracking-widest text-gold-200">
           {status.reference}
