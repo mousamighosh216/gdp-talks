@@ -47,10 +47,10 @@ export function validateRegistration(body: unknown): RegistrationResult {
   const teamName = clean(raw.teamName);
   const institution = clean(raw.institution);
   if (teamName.length < 2 || teamName.length > 60 || !validNamePattern.test(teamName)) {
-    errors.teamName = 'Team name must be 2 to 60 characters and contain only letters, numbers, and spaces';
+    errors.teamName = 'Team name must be 2 to 60 characters and contain only letters and spaces';
   }
   if (institution.length < 2 || institution.length > 120 || !validNamePattern.test(institution)) {
-    errors.institution = 'College or university name must be 2 to 120 characters and contain only letters, numbers, and spaces';;
+    errors.institution = 'College or university name must be 2 to 120 characters and contain only letters and spaces';;
   }
 
   const list = Array.isArray(raw.members) ? raw.members : [];
