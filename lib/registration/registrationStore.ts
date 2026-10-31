@@ -24,6 +24,8 @@ export const resetMemoryRegistrations = () => {
 
 const DUPLICATE_TEAM = 'That team name is already registered';
 const DUPLICATE_EMAIL = 'This email is already part of a registered team';
+const REFERENCE_ATTEMPTS = 2;
+const DUPLICATE_REFERENCE = 'We could not generate a unique registration reference. Please try again.';
 
 function saveInMemory(v: Valid, reference: string): StoreResult {
   if (memory.some((r) => r.teamName.toLowerCase() === v.teamName.toLowerCase())) {
@@ -39,8 +41,6 @@ function saveInMemory(v: Valid, reference: string): StoreResult {
 }
 
 export async function saveRegistration(v: Valid): Promise<StoreResult> {
-  const reference = makeReference();
-
   if (!sheetsConfigured()) {
     if (process.env.NODE_ENV === 'production') {
       console.error(
@@ -48,18 +48,30 @@ export async function saveRegistration(v: Valid): Promise<StoreResult> {
       );
       return { ok: false, status: 503, message: 'Registration is not open yet. Please try again later.' };
     }
-    return saveInMemory(v, reference);
+
+    for (let attempt = 0; attempt < REFERENCE_ATTEMPTS; attempt++) {
+      const reference = makeReference();
+      if (memory.some((registration) => registration.reference === reference)) continue;
+      return saveInMemory(v, reference);
+    }
+
+    return { ok: false, status: 503, message: DUPLICATE_REFERENCE };
   }
 
   try {
-    const result = await appendRegistration(reference, v);
-    if (result.ok) return { ok: true, reference };
-    return {
-      ok: false,
-      status: 409,
-      field: result.duplicate,
-      message: result.duplicate === 'teamName' ? DUPLICATE_TEAM : DUPLICATE_EMAIL,
-    };
+    for (let attempt = 0; attempt < REFERENCE_ATTEMPTS; attempt++) {
+      const reference = makeReference();
+      const result = await appendRegistration(reference, v);
+      if (result.ok) return { ok: true, reference };
+      if (result.duplicate === 'reference') continue;
+      return {
+        ok: false,
+        status: 409,
+        field: result.duplicate,
+        message: result.duplicate === 'teamName' ? DUPLICATE_TEAM : DUPLICATE_EMAIL,
+      };
+    }
+    return { ok: false, status: 503, message: DUPLICATE_REFERENCE };
   } catch (err) {
     console.error('Google Sheets write failed:', (err as Error).message);
     return { ok: false, status: 502, message: 'We could not save your registration. Please try again.' };

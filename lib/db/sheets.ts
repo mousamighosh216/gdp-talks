@@ -20,7 +20,7 @@ export const sheetsConfigured = () => getSheetsClient() !== null;
 
 export type SheetResult =
   | { ok: true }
-  | { ok: false; duplicate: 'teamName' | `members.${number}.email` };
+  | { ok: false; duplicate: 'reference' | 'teamName' | `members.${number}.email` };
 
 const plain = (v: unknown) => String(v ?? '').trim().toLowerCase();
 
@@ -36,14 +36,21 @@ export async function appendRegistration(
   if (!client) throw new Error('Google Sheets is not configured');
   const { sheets, sheetId } = client;
 
-  // 1. One read: team names (column C) and the three email columns (G, J, M)
+  // 1. One read: references (B), team names (C), and the three email columns (G, J, M)
   const read = await sheets.spreadsheets.values.batchGet({
     spreadsheetId: sheetId,
-    ranges: [`${SHEET_TAB}!C2:C`, `${SHEET_TAB}!G2:G`, `${SHEET_TAB}!J2:J`, `${SHEET_TAB}!M2:M`],
+    ranges: [
+      `${SHEET_TAB}!B2:B`,
+      `${SHEET_TAB}!C2:C`,
+      `${SHEET_TAB}!G2:G`,
+      `${SHEET_TAB}!J2:J`,
+      `${SHEET_TAB}!M2:M`,
+    ],
   });
-  const [teams, ...emailCols] = (read.data.valueRanges ?? []).map((r) =>
+  const [references, teams, ...emailCols] = (read.data.valueRanges ?? []).map((r) =>
     (r.values ?? []).flat().map(plain)
   );
+  if (references?.includes(plain(reference))) return { ok: false, duplicate: 'reference' };
   if (teams?.includes(plain(v.teamName))) return { ok: false, duplicate: 'teamName' };
   const taken = new Set(emailCols.flat());
   for (let i = 0; i < v.members.length; i++) {
