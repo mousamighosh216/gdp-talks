@@ -18,6 +18,7 @@ import { appendRegistration } from '@/lib/db/sheets';
 const registration = {
   teamName: 'Team One',
   institution: 'Example University',
+  referralSource: 'Social Media' as const,
   members: [{ name: 'Member One', email: 'member@example.com', phone: '1234567890' }],
 };
 
@@ -30,6 +31,33 @@ beforeEach(() => {
 });
 
 describe('appendRegistration reference uniqueness', () => {
+  it('appends the referral source in column P', async () => {
+    batchGet.mockResolvedValue({ data: { valueRanges: Array.from({ length: 5 }, () => ({ values: [] })) } });
+
+    await expect(appendRegistration('GDP-7K2M9Q', registration)).resolves.toEqual({ ok: true });
+
+    const request = append.mock.calls[0][0];
+    expect(request.range).toBe('Registrations!A:P');
+    expect(request.requestBody.values[0]).toEqual([
+      expect.any(String),
+      'GDP-7K2M9Q',
+      'Team One',
+      'Example University',
+      '1',
+      'Member One',
+      'member@example.com',
+      '+911234567890',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      'Yes',
+      'Social Media',
+    ]);
+  });
+
   it('checks existing references in column B and skips duplicate IDs', async () => {
     batchGet.mockResolvedValue({
       data: {

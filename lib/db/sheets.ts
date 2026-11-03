@@ -1,4 +1,5 @@
 import { google } from 'googleapis';
+import type { ReferralSource } from '../registration/registration';
 
 const SHEET_TAB = 'Registrations';
 
@@ -29,6 +30,7 @@ export async function appendRegistration(
   v: {
     teamName: string;
     institution: string;
+    referralSource: ReferralSource;
     members: { name: string; email: string; phone: string }[];
   }
 ): Promise<SheetResult> {
@@ -59,17 +61,18 @@ export async function appendRegistration(
     }
   }
 
-  // 2. One write: a single row, columns A to O
+  // 2. One write: a single row, columns A to P
   const row: string[] = [new Date().toISOString(), reference, v.teamName, v.institution, String(v.members.length)];
   for (let i = 0; i < 3; i++) {
     const m = v.members[i];
     row.push(m?.name ?? '', m?.email ?? '', m ? `+91${m.phone}` : '');
   }
   row.push('Yes');
+  row.push(v.referralSource);
 
   await sheets.spreadsheets.values.append({
     spreadsheetId: sheetId,
-    range: `${SHEET_TAB}!A:O`,
+    range: `${SHEET_TAB}!A:P`,
     valueInputOption: 'RAW', // stored exactly as sent; "=1+1" stays text
     insertDataOption: 'INSERT_ROWS',
     requestBody: { values: [row] },
