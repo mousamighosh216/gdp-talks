@@ -13,7 +13,7 @@ export default function RegisterPage() {
       <FloatingBackdrop preset="journey" />
       <div className="relative mx-auto max-w-3xl px-5">
         <h1 className="type-head mt-2 font-heading font-bold tracking-tight text-navy-950">
-          Register your hackathon team
+          Register your team
         </h1>
         <p className="mt-4 max-w-2xl text-lg leading-relaxed text-navy-950/85">
           Fill in verified participant details. A team has a minimum of 2 and a maximum of 3

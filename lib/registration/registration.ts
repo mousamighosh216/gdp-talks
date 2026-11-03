@@ -1,6 +1,16 @@
 export const MIN_MEMBERS = 2;
 export const MAX_MEMBERS = 3;
 
+export const REFERRAL_SOURCES = [
+  'Social Media',
+  'Friend or Colleague',
+  'GDP Talks Team',
+  'College or University',
+  'Event or Community',
+] as const;
+
+export type ReferralSource = (typeof REFERRAL_SOURCES)[number];
+
 export interface MemberInput {
   name: string;
   email: string;
@@ -12,6 +22,7 @@ export interface MemberInput {
 export interface RegistrationInput {
   teamName: string;
   institution: string;
+  referralSource: ReferralSource;
   members: MemberInput[];
   consent: boolean;
 }
@@ -24,6 +35,8 @@ export type RegistrationResult =
 
 // simple regex 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const isReferralSource = (value: unknown): value is ReferralSource =>
+  typeof value === 'string' && REFERRAL_SOURCES.some((source) => source === value);
 
 /** Accepts "98765 43210", "+91 98765 43210" or "09876543210" and returns the 10 digits, or ''. */
 export function normalizePhone(raw: string): string {
@@ -46,11 +59,15 @@ export function validateRegistration(body: unknown): RegistrationResult {
 
   const teamName = clean(raw.teamName);
   const institution = clean(raw.institution);
+  const referralSource = isReferralSource(raw.referralSource) ? raw.referralSource : undefined;
   if (teamName.length < 2 || teamName.length > 60 || !validNamePattern.test(teamName)) {
     errors.teamName = 'Team name must be 2 to 60 characters and contain only letters and spaces';
   }
   if (institution.length < 2 || institution.length > 120 || !validNamePattern.test(institution)) {
     errors.institution = 'College or university name must be 2 to 120 characters and contain only letters and spaces';;
+  }
+  if (!referralSource) {
+    errors.referralSource = 'Select how you discovered GDP Talks';
   }
 
   const list = Array.isArray(raw.members) ? raw.members : [];
@@ -83,7 +100,11 @@ export function validateRegistration(body: unknown): RegistrationResult {
   if (raw.consent !== true) errors.consent = 'Please confirm the declaration to continue';
 
   if (Object.keys(errors).length) return { ok: false, errors };
-  return { ok: true, value: { teamName, institution, members, consent: true } };
+  if (!referralSource) return { ok: false, errors };
+  return {
+    ok: true,
+    value: { teamName, institution, referralSource, members, consent: true },
+  };
 }
 
 export function sheetSafe(value: string): string {
@@ -95,6 +116,7 @@ export function toSheetPayload(v: Required<Omit<RegistrationInput, 'website'>>) 
   return {
     teamName: sheetSafe(v.teamName),
     institution: sheetSafe(v.institution),
+    referralSource: v.referralSource,
     memberCount: v.members.length,
     members: v.members.map((m) => ({
       name: sheetSafe(m.name),

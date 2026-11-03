@@ -109,8 +109,8 @@ export default function DocD() {
 
         <div className="mx-auto mt-10 grid max-w-xl grid-cols-2 gap-6 sm:mt-12 sm:gap-12">
           {([
-            { who: 'x', title: 'Engineer X', subtitle: 'Big ideas, first deploy' },
-            { who: 'd', title: 'Doc D', subtitle: 'Here to help you ship' },
+            { who: 'x', title: 'Engineer X', subtitle: 'Big ideas, active learner' },
+            { who: 'd', title: 'Doc D', subtitle: 'Helping you solve real problems' },
           ] as const).map(({ who, title, subtitle }) => (
             <figure key={who} className="flex flex-col items-center text-center">
               <div className="relative h-36 w-36 overflow-hidden rounded-full border-4 border-gold-400 bg-cream shadow-xl sm:h-48 sm:w-48">

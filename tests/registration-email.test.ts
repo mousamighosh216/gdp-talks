@@ -22,6 +22,7 @@ import { POST as register } from '@/app/api/register/route';
 const registration = {
   teamName: 'Quantum Badgers',
   institution: 'Example University',
+  referralSource: 'Social Media' as const,
   members: [
     { name: 'Ada Lovelace', email: 'ada@example.edu', phone: '9876543210' },
     { name: 'Grace Hopper', email: 'grace@example.edu', phone: '9876543211' },

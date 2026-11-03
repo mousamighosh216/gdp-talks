@@ -6,6 +6,7 @@ import { ArrowLeft, CheckCircle2, Loader2, Lock, Plus, ShieldCheck, X } from 'lu
 import {
   MAX_MEMBERS,
   MIN_MEMBERS,
+  REFERRAL_SOURCES,
   roleLabel,
   validateRegistration,
   type FieldErrors,
@@ -137,6 +138,7 @@ export default function RegisterForm() {
   const formRef = useRef<HTMLFormElement>(null);
   const [teamName, setTeamName] = useState('');
   const [institution, setInstitution] = useState('');
+  const [referralSource, setReferralSource] = useState('');
   const [members, setMembers] = useState<MemberInput[]>([EMPTY_MEMBER, EMPTY_MEMBER, EMPTY_MEMBER]);
   const [count, setCount] = useState(MIN_MEMBERS);
   const [consent, setConsent] = useState(false);
@@ -149,9 +151,9 @@ export default function RegisterForm() {
   // Once someone has pressed submit, errors update live as they fix each field.
   const clientErrors: FieldErrors = useMemo(() => {
     if (!attempted) return {};
-    const r = validateRegistration({ teamName, institution, members: roster, consent });
+    const r = validateRegistration({ teamName, institution, referralSource, members: roster, consent });
     return r.ok ? {} : r.errors;
-  }, [attempted, teamName, institution, roster, consent]);
+  }, [attempted, teamName, institution, referralSource, roster, consent]);
   const errors = { ...clientErrors, ...serverErrors };
 
   const edit = <T,>(setter: (v: T) => void) => (v: T) => {
@@ -174,7 +176,7 @@ export default function RegisterForm() {
     setAttempted(true);
     setServerErrors({});
 
-    const check = validateRegistration({ teamName, institution, members: roster, consent });
+    const check = validateRegistration({ teamName, institution, referralSource, members: roster, consent });
     if (!check.ok) {
       setStatus({ state: 'idle' });
       focusFirstError(check.errors);
@@ -270,7 +272,7 @@ export default function RegisterForm() {
             value={teamName}
             onChange={edit(setTeamName)}
             error={errors.teamName}
-            placeholder="e.g. Quantum Badgers"
+            placeholder="e.g. Quantum Breakers"
             autoComplete="off"
           />
           <Field
@@ -380,6 +382,35 @@ export default function RegisterForm() {
         </button>
       )}
 
+      <div className={card}>
+        <h2 className="font-heading text-xl font-bold text-navy-950">How did you discover GDP Talks?</h2>
+        <div className="mt-6">
+          <label htmlFor="referral-source" className="block font-heading text-sm font-semibold text-navy-950">
+            Referral source
+          </label>
+          <select
+            id="referral-source"
+            data-field="referralSource"
+            value={referralSource}
+            onChange={(e) => edit(setReferralSource)(e.target.value)}
+            aria-invalid={errors.referralSource ? true : undefined}
+            aria-describedby={errors.referralSource ? 'referral-source-err' : undefined}
+            className={`${inputClass} mt-2 ${errors.referralSource ? 'border-red-700' : 'border-navy-950/20'}`}
+          >
+            <option value="">Select an option</option>
+            {REFERRAL_SOURCES.map((source) => (
+              <option key={source} value={source}>
+                {source}
+              </option>
+            ))}
+          </select>
+          {errors.referralSource && (
+            <p id="referral-source-err" role="alert" className="mt-1.5 text-sm font-medium text-red-800">
+              {errors.referralSource}
+            </p>
+          )}
+        </div>
+      </div>
 
       <div className={card}>
         <label className="flex cursor-pointer items-start gap-3">

@@ -13,6 +13,7 @@ import { saveRegistration } from '@/lib/registration/registrationStore';
 const registration = {
   teamName: 'Team One',
   institution: 'Example University',
+  referralSource: 'Social Media' as const,
   members: [{ name: 'Member One', email: 'member@example.com', phone: '1234567890' }],
   consent: true,
 };
