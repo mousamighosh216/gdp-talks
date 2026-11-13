@@ -6,6 +6,7 @@ const validRegistration = {
   name: 'Ada Lovelace',
   email: 'ada@example.edu',
   phone: '9876543210',
+  talksID: 'GDP-7K2M9Q',
   eventDescription: Array(50).fill('description').join(' '),
   eventTakeway: Array(20).fill('takeaway').join(' '),
   documentLinks: 'https://example.com/doc',

@@ -2,6 +2,7 @@ export interface EventRegistration {
   name: string;
   email: string;
   phone: string;
+  talksID: string;
   eventDescription: string;
   eventTakeway: string;
   documentLinks: string;
@@ -35,6 +36,7 @@ export function validateRegistration(body: unknown): RegistrationResult {
   const name = clean(raw.name);
   const email = clean(raw.email).toLowerCase();
   const phone = normalizePhone(typeof raw.phone === 'string' ? raw.phone : '');
+  const talksID = clean(raw.talksID).toUpperCase();
   const eventDescription = clean(raw.eventDescription);
   const eventTakeway = clean(raw.eventTakeway);
   const documentLinks = clean(raw.documentLinks);
@@ -53,14 +55,14 @@ export function validateRegistration(body: unknown): RegistrationResult {
   if (name.length < 2 || name.length > 80 || !validNamePattern.test(name)) errors.name = 'Enter the full name';
   if (!EMAIL.test(email) || email.length > 200) errors.email = 'Enter a valid email';
   if (!phone) errors.phone = 'Enter a 10 digit mobile number';
+  if (talksID.length !== 10) errors.talksID = 'Enter your 10-character GDP Talks Reference ID. Don’t have one? Register your team.';
     
-
   if (raw.consent !== true) errors.consent = 'Please confirm the declaration to continue';
 
   if (Object.keys(errors).length) return { ok: false, errors };
   return {
     ok: true,
-    value: { name, email, phone, eventDescription, eventTakeway, documentLinks, consent: true},
+    value: { name, email, phone, talksID, eventDescription, eventTakeway, documentLinks, consent: true},
   };
 }
 

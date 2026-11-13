@@ -91,7 +91,7 @@ export async function appendRegistration(
 // -------------------------------------------------------------------------------------------------------------
 export type EventSheetResult =
   | { ok: true }
-  | { ok: false; duplicate: 'email'};
+  | { ok: false; duplicate: 'email' | 'talksID' };
 
 export async function appendTalksRegistration(
   reference: string,
@@ -99,6 +99,7 @@ export async function appendTalksRegistration(
     name: string;
     email: string;
     phone: string;
+    talksID: string;
     eventDescription: string;
     eventTakeway: string;
     documentLinks: string;
@@ -108,26 +109,28 @@ export async function appendTalksRegistration(
   if (!client) throw new Error('Google Sheets is not configured');
   const { sheets, sheetId } = client;
 
-  // 1. One read: EMAIL (D)
+  // Read registration references and existing event emails from their tabs in the same spreadsheet.
   const read = await sheets.spreadsheets.values.batchGet({
     spreadsheetId: sheetId,
     ranges: [
+      `${SHEET_TAB}!B2:B`,
       `${SHEET_TAB_EVENT}!D2:D`,
     ],
   });
-  const [email] = (read.data.valueRanges ?? []).map((r) =>
+  const [references, emails] = (read.data.valueRanges ?? []).map((r) =>
     (r.values ?? []).flat().map(plain)
   );
-  if (email?.includes(plain(v.email))) return { ok: false, duplicate: 'email' };
+  if (!references?.includes(plain(v.talksID))) return { ok: false, duplicate: 'talksID' };
+  if (emails?.includes(plain(v.email))) return { ok: false, duplicate: 'email' };
 
-  // 2. One write: a single row, columns A to I
-  const row: string[] = [new Date().toISOString(), reference, v.name, v.email, v.phone, v.eventDescription, v.eventTakeway, v.documentLinks];
+  // 2. One write: a single row, columns A to J
+  const row: string[] = [new Date().toISOString(), reference, v.name, v.email, v.phone, v.talksID, v.eventDescription, v.eventTakeway, v.documentLinks];
 
   row.push('Yes');
 
   await sheets.spreadsheets.values.append({
     spreadsheetId: sheetId,
-    range: `${SHEET_TAB_EVENT}!A:I`,
+    range: `${SHEET_TAB_EVENT}!A:J`,
     valueInputOption: 'RAW', // stored exactly as sent; "=1+1" stays text
     insertDataOption: 'INSERT_ROWS',
     requestBody: { values: [row] },

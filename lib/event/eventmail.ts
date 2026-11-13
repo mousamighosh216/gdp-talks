@@ -30,6 +30,7 @@ export async function sendRegistrationConfirmation(
     `Name: ${registration.name}`,
     `Email: ${registration.email}`,
     `Phone: ${registration.phone}`,
+    `GDP-Talks ReferenceID: ${registration.talksID}`,
     ' ',
     `Event Description: ${registration.eventDescription}`,
     `Event Takeway: ${registration.eventTakeway}`,

@@ -127,6 +127,7 @@ export default function EventForm() {
     name: '',
     email: '',
     phone: '',
+    talksID: '',
     eventDescription: '',
     eventTakeway: '',
     documentLinks: '',
@@ -273,6 +274,14 @@ export default function EventForm() {
               prefix="+91"
             />
           </div>
+          <TextField
+            name="talksID"
+            label="GDP Talks reference ID"
+            value={values.talksID}
+            onChange={edit('talksID')}
+            error={errors.talksID}
+            placeholder="GDP-7K2M9Q"
+          />
         </div>
       </section>
 
