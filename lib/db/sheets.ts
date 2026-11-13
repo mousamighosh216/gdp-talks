@@ -2,6 +2,7 @@ import { google } from 'googleapis';
 import type { ReferralSource } from '../registration/registration';
 
 const SHEET_TAB = 'Registrations';
+const SHEET_TAB_EVENT = 'Event';
 
 function getSheetsClient() {
   const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
@@ -19,11 +20,16 @@ function getSheetsClient() {
 
 export const sheetsConfigured = () => getSheetsClient() !== null;
 
+const plain = (v: unknown) => String(v ?? '').trim().toLowerCase();
+
+
+// -------------------------------------------------------------------------------------------------------------
+//                                         TEAM REGISTRATION
+// -------------------------------------------------------------------------------------------------------------
+
 export type SheetResult =
   | { ok: true }
   | { ok: false; duplicate: 'reference' | 'teamName' | `members.${number}.email` };
-
-const plain = (v: unknown) => String(v ?? '').trim().toLowerCase();
 
 export async function appendRegistration(
   reference: string,
@@ -73,6 +79,55 @@ export async function appendRegistration(
   await sheets.spreadsheets.values.append({
     spreadsheetId: sheetId,
     range: `${SHEET_TAB}!A:P`,
+    valueInputOption: 'RAW', // stored exactly as sent; "=1+1" stays text
+    insertDataOption: 'INSERT_ROWS',
+    requestBody: { values: [row] },
+  });
+  return { ok: true };
+}
+
+// -------------------------------------------------------------------------------------------------------------
+//                                         STUDENT TALKS REGISTRATION
+// -------------------------------------------------------------------------------------------------------------
+export type EventSheetResult =
+  | { ok: true }
+  | { ok: false; duplicate: 'email'};
+
+export async function appendTalksRegistration(
+  reference: string,
+  v: {
+    name: string;
+    email: string;
+    phone: string;
+    eventDescription: string;
+    eventTakeway: string;
+    documentLinks: string;
+  }
+): Promise<EventSheetResult> {
+  const client = getSheetsClient();
+  if (!client) throw new Error('Google Sheets is not configured');
+  const { sheets, sheetId } = client;
+
+  // 1. One read: EMAIL (D)
+  const read = await sheets.spreadsheets.values.batchGet({
+    spreadsheetId: sheetId,
+    ranges: [
+      `${SHEET_TAB_EVENT}!D2:D`,
+    ],
+  });
+  const [email] = (read.data.valueRanges ?? []).map((r) =>
+    (r.values ?? []).flat().map(plain)
+  );
+  if (email?.includes(plain(v.email))) return { ok: false, duplicate: 'email' };
+
+  // 2. One write: a single row, columns A to I
+  const row: string[] = [new Date().toISOString(), reference, v.name, v.email, v.phone, v.eventDescription, v.eventTakeway, v.documentLinks];
+
+  row.push('Yes');
+
+  await sheets.spreadsheets.values.append({
+    spreadsheetId: sheetId,
+    range: `${SHEET_TAB_EVENT}!A:I`,
     valueInputOption: 'RAW', // stored exactly as sent; "=1+1" stays text
     insertDataOption: 'INSERT_ROWS',
     requestBody: { values: [row] },
