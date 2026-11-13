@@ -3,8 +3,8 @@ import FloatingBackdrop from '@/components/FloatingBackdrop';
 import EventForm from '@/components/EventForm';
 
 export const metadata: Metadata = {
-  title: 'Register for Peer-Talks',
-  description: 'Register yourself for the Peer-Talks event.',
+  title: 'Register for Your-Talks',
+  description: 'Register yourself for the Your-Talks event.',
 };
 
 export default function RegisterPage() {
@@ -13,7 +13,7 @@ export default function RegisterPage() {
       <FloatingBackdrop preset="journey" />
       <div className="relative mx-auto max-w-3xl px-5">
         <h1 className="type-head mt-2 font-heading font-bold tracking-tight text-navy-950">
-          Register For Peer-Talks
+          Register For Your-Talks
         </h1>
         <p className="mt-4 max-w-2xl text-lg leading-relaxed text-navy-950/85">
           Fill in verified participant details. 
