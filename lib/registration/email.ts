@@ -30,7 +30,7 @@ export async function sendRegistrationConfirmation(
     .join('\n\n');
   const text = [
     'Your GDP Talks registration is confirmed.',
-    'Join the community: https://chat.whatsapp.com/KvjhOg8nRZT0oBoKoHDUU3?s=cl&p=a&iam=2',
+    'Join the community: https://chat.whatsapp.com/HeV0Em5kbBKGEjTRWzdo1Z',
     '',
     `Reference ID: ${reference}`,
     `Team name: ${registration.teamName}`,

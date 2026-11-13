@@ -110,14 +110,23 @@ export default function Hero() {
                 </div>
               )}
 
-              <Link
-                href="/doc-d"
-                className="pop mt-6 inline-flex items-center gap-3 rounded-full bg-gold-400 py-2.5 pl-3 pr-6 font-heading text-base font-semibold text-navy-950 shadow-md transition hover:bg-gold-200"
-              >
-                <Avatar who="d" className="h-9 w-9 text-xs" />
-                Meet Doc D
-                <ArrowRight size={18} aria-hidden="true" />
-              </Link>
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <Link
+                  href="/doc-d"
+                  className="pop inline-flex items-center gap-3 rounded-full bg-gold-400 py-2.5 pl-3 pr-6 font-heading text-base font-semibold text-navy-950 shadow-md transition hover:bg-gold-200"
+                >
+                  <Avatar who="d" className="h-9 w-9 text-xs" />
+                  Meet Doc D
+                  <ArrowRight size={18} aria-hidden="true" />
+                </Link>
+                <Link
+                  href="/talks"
+                  className="pop inline-flex items-center gap-3 rounded-full bg-navy-950 px-5 py-4 font-heading text-base font-semibold text-cream shadow-md transition hover:bg-navy-700"
+                >
+                  Peer-Talks
+                  <ArrowRight size={18} aria-hidden="true" />
+                </Link>
+              </div>
             </div>
           </div>
 

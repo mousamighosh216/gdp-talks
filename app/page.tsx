@@ -3,6 +3,7 @@ import Journey from '@/components/Journey';
 import Companies from '@/components/Companies';
 import WhatIsGDPTalks from '@/components/What';
 import About from '@/components/About';
+import EventPopUp from '@/components/EventPopUp';
 import { getJourney, getSectors } from '@/lib/sectors/data';
 
 export const dynamic = 'force-dynamic';
@@ -18,6 +19,7 @@ export default async function Home() {
       <Journey steps={journey} />
       <Companies sectors={sectors} />
       <About />
+      <EventPopUp />
     </>
   );
 }

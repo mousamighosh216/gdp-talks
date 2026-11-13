@@ -13,7 +13,7 @@ vi.mock('googleapis', () => ({
   },
 }));
 
-import { appendRegistration } from '@/lib/db/sheets';
+import { appendRegistration, appendTalksRegistration } from '@/lib/db/sheets';
 
 const registration = {
   teamName: 'Team One',
@@ -77,5 +77,27 @@ describe('appendRegistration reference uniqueness', () => {
     });
     expect(batchGet.mock.calls[0][0].ranges).toContain('Registrations!B2:B');
     expect(append).not.toHaveBeenCalled();
+  });
+});
+
+describe('appendTalksRegistration', () => {
+  it('appends all nine event fields through column I', async () => {
+    batchGet.mockResolvedValue({ data: { valueRanges: [{ values: [] }] } });
+
+    await expect(
+      appendTalksRegistration('GDP-ABCDE', {
+        name: 'Ada Lovelace',
+        email: 'ada@example.edu',
+        phone: '9876543210',
+        eventDescription: 'A sufficiently detailed event description',
+        eventTakeway: 'A useful takeaway',
+        documentLinks: 'https://example.com/doc',
+      })
+    ).resolves.toEqual({ ok: true });
+
+    const request = append.mock.calls[0][0];
+    expect(request.range).toBe('Event!A:I');
+    expect(request.requestBody.values[0]).toHaveLength(9);
+    expect(request.requestBody.values[0][8]).toBe('Yes');
   });
 });
