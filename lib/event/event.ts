@@ -15,7 +15,8 @@ export function makeReference(): string {
   return `GDP-${Array.from(bytes, (b) => alphabet[b % alphabet.length]).join('')}`;
 }
 
-const DUPLICATE_EMAIL = 'This email is already part of a registered team';
+const DUPLICATE_EMAIL = 'This email is already used for a Peer-Talks registration';
+const INVALID_TALKS_ID = 'Enter a valid GDP Talks reference ID';
 
 export async function saveEventRegistration(m: Valid): Promise<StoreResult> {
   if (!sheetsConfigured()) {
@@ -35,7 +36,7 @@ export async function saveEventRegistration(m: Valid): Promise<StoreResult> {
         ok: false,
         status: 409,
         field: result.duplicate,
-        message: DUPLICATE_EMAIL,
+        message: result.duplicate === 'email' ? DUPLICATE_EMAIL : INVALID_TALKS_ID,
     };
   } catch (err) {
     console.error('Google Sheets write failed:', (err as Error).message);

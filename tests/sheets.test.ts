@@ -81,14 +81,19 @@ describe('appendRegistration reference uniqueness', () => {
 });
 
 describe('appendTalksRegistration', () => {
-  it('appends all nine event fields through column I', async () => {
-    batchGet.mockResolvedValue({ data: { valueRanges: [{ values: [] }] } });
+  it('checks the submitted reference and appends all ten event fields through column J', async () => {
+    batchGet.mockResolvedValue({
+      data: {
+        valueRanges: [{ values: [['GDP-7K2M9Q']] }, { values: [] }],
+      },
+    });
 
     await expect(
       appendTalksRegistration('GDP-ABCDE', {
         name: 'Ada Lovelace',
         email: 'ada@example.edu',
         phone: '9876543210',
+        talksID: 'GDP-7K2M9Q',
         eventDescription: 'A sufficiently detailed event description',
         eventTakeway: 'A useful takeaway',
         documentLinks: 'https://example.com/doc',
@@ -96,8 +101,31 @@ describe('appendTalksRegistration', () => {
     ).resolves.toEqual({ ok: true });
 
     const request = append.mock.calls[0][0];
-    expect(request.range).toBe('Event!A:I');
-    expect(request.requestBody.values[0]).toHaveLength(9);
-    expect(request.requestBody.values[0][8]).toBe('Yes');
+    expect(request.range).toBe('Event!A:J');
+    expect(request.requestBody.values[0]).toHaveLength(10);
+    expect(request.requestBody.values[0][5]).toBe('GDP-7K2M9Q');
+    expect(request.requestBody.values[0][9]).toBe('Yes');
+    expect(batchGet.mock.calls[0][0].ranges).toEqual(['Registrations!B2:B', 'Event!D2:D']);
+  });
+
+  it('does not append when the submitted reference is not in the registration sheet', async () => {
+    batchGet.mockResolvedValue({
+      data: {
+        valueRanges: [{ values: [['GDP-7K2M9Q']] }, { values: [] }],
+      },
+    });
+
+    await expect(
+      appendTalksRegistration('GDP-ABCDE', {
+        name: 'Ada Lovelace',
+        email: 'ada@example.edu',
+        phone: '9876543210',
+        talksID: 'GDP-9Z9Z9Z',
+        eventDescription: 'A sufficiently detailed event description',
+        eventTakeway: 'A useful takeaway',
+        documentLinks: 'https://example.com/doc',
+      })
+    ).resolves.toEqual({ ok: false, duplicate: 'talksID' });
+    expect(append).not.toHaveBeenCalled();
   });
 });
