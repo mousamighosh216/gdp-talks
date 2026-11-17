@@ -123,7 +123,7 @@ export default function Hero() {
                   href="/talks"
                   className="pop inline-flex items-center gap-3 rounded-full bg-navy-950 px-5 py-4 font-heading text-base font-semibold text-cream shadow-md transition hover:bg-navy-700"
                 >
-                  Peer-Talks
+                  Your-Talk
                   <ArrowRight size={18} aria-hidden="true" />
                 </Link>
               </div>
